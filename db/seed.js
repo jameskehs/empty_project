@@ -6,6 +6,7 @@ const seedUsers = [
   { username: "Heath", password: "69" },
   { username: "Vincent", password: "gothgirls" },
 ];
+
 const dropTables = async () => {
   try {
     console.log("Starting to drop tables!");
