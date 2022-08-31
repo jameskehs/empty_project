@@ -1,0 +1,16 @@
+.hero {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+  h2 {
+  }
+  img {
+    max-width: 760px;
+    max-height: 350px;
+    object-fit: contain;
+  }
+}

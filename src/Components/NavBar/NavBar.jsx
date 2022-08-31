@@ -1,14 +1,16 @@
-import React from "react";
+import "./NavBar.css";
 
-export const NavBar = ({ navData }) => {
-  const { companyName, links } = navData;
-
+const NavBar = ({ companyName, links }) => {
   return (
-    <div>
+    <nav>
       <h1>{companyName}</h1>
-      {links.map((link) => {
-        return <a href={link.href}>{link.content}</a>;
-      })}
-    </div>
+      <div className="links">
+        {links.map((link) => {
+          return <a href={link.href}>{link.content}</a>;
+        })}
+      </div>
+    </nav>
   );
 };
+
+export default NavBar;

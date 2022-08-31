@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "express": "^4.18.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
@@ -23,6 +24,7 @@
     "server:dev": "nodemon index.js",
     "seed:db": "node ./db/seed.js"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",
