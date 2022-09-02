@@ -7,6 +7,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 12px 0;
 }
 
 .hero div {
@@ -17,6 +18,17 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hero h2 {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
 }
 
 .hero img {
@@ -24,5 +36,20 @@
   max-height: 350px;
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+.hero .hero-btn-container {
+  width: 100%;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.hero .hero-btn-container button {
+  padding: 12px;
+  margin: 12px;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 /*# sourceMappingURL=Hero.css.map */

@@ -9,7 +9,7 @@ function App() {
 
   useEffect(() => {
     async function fetchLayout() {
-      const { data } = await axios.get("/api/layouts/1");
+      const { data } = await axios.get("/api/layouts/2");
       setLayout(data.layout);
     }
 
@@ -25,7 +25,6 @@ function App() {
     <div className="App">
       {layout.length > 0 &&
         layout.map((component, index) => {
-          console.log(component);
           component.props.key = index;
           return React.createElement(Components[component.componentName], component.props);
         })}

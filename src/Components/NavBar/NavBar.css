@@ -8,12 +8,25 @@ nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #303030;
+  margin: 0 -250px;
+  padding: 24px;
+}
+
+nav h1 {
+  color: #fff;
 }
 
 nav .links a {
   text-decoration: none;
-  color: black;
+  color: #fff;
   font-weight: 700;
   padding: 0 12px;
+}
+
+nav .links a:hover {
+  color: #c1c1c1;
 }
 /*# sourceMappingURL=NavBar.css.map */
