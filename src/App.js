@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./Components/NavBar/NavBar";
 import Hero from "./Components/Hero/Hero";
+import People from "./Components/People/People";
+import Gallery from "./Components/Gallery/Gallery";
+import Contact from "./Components/Contact/Contact";
 
 function App() {
   const [layout, setLayout] = useState([]);
@@ -19,6 +22,9 @@ function App() {
   const Components = {
     NavBar: NavBar,
     Hero: Hero,
+    People: People,
+    Gallery: Gallery,
+    Contact: Contact
   };
 
   return (

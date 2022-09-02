@@ -26,6 +26,35 @@ const seedLayout1 = [
       imgSrc: "./assets/HappyPup.jpeg",
     },
   },
+  {
+    componentName: "People",
+    props: {
+      title: "TB3 Staff",
+      desc: "Our exceptionally handsome developers",
+      persons:[
+        {name: "Josh" , imgSrc: "./assets/HappyPup.jpeg"},
+        {name: "Jim" , imgSrc: "./assets/businessCat.jpeg"}
+      ]
+    },
+  },
+  {
+    componentName: "Gallery",
+    props: {
+      title: "TB3 Products",
+      imagePairs:[
+        {subtitle: "We sell happy dogs" , imgSrc: "./assets/HappyPup.jpeg"},
+        {subtitle: "Cats sell slaves" , imgSrc: "./assets/businessCat.jpeg"}
+      ]
+    },
+  },
+  {
+    componentName: "Contact",
+    props: {
+      email: "jeathkarnoldbustaorsomethinglikethat@gmail.com",
+      phone: "225-123-4567",
+      address: "1800 bofa lane"
+    },
+  },
 ];
 
 const seedLayout2 = [
