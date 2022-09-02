@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import NavBar from "./Components/NavBar/NavBar";
 import Hero from "./Components/Hero/Hero";
+import Collection from "./Components/Collection/Collection";
 
 function App() {
   const [layout, setLayout] = useState([]);
@@ -19,6 +20,7 @@ function App() {
   const Components = {
     NavBar: NavBar,
     Hero: Hero,
+    Collection: Collection,
   };
 
   return (

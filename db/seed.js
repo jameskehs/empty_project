@@ -48,6 +48,18 @@ const seedLayout2 = [
       buttons: [{ content: "Try Now!" }, { content: "Contact Us" }],
     },
   },
+  {
+    componentName: "Collection",
+    props: {
+      title: "Our Team",
+      desc: "The greatest team you've ever seen.",
+      collectionItems: [
+        { imgSrc: "./assets/businessCat.jpeg", itemTitle: "Bart", itemDesc: "CEO" },
+        { imgSrc: "./assets/businessCat.jpeg", itemTitle: "Tuna", itemDesc: "Accounting" },
+        { imgSrc: "./assets/businessCat.jpeg", itemTitle: "Chad", itemDesc: "IT" },
+      ],
+    },
+  },
 ];
 
 const dropTables = async () => {
