@@ -7,7 +7,6 @@ const Collection = ({ title, desc, collectionItems }) => {
       <p>{desc}</p>
       <div className="collection-item-container">
         {collectionItems.map((item, index) => {
-          console.log(item);
           return <CollectionItem key={index} item={item} />;
         })}
       </div>

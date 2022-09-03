@@ -1,13 +1,8 @@
-const { client, createUser, createLayout } = require("./index");
+const { client, createLayout } = require("./index");
 const seedLayout1 = require("./layout1");
 const seedLayout2 = require("./layout2");
-
-const seedUsers = [
-  { username: "Jim", password: "password" },
-  { username: "Josh", password: "1234" },
-  { username: "Heath", password: "69" },
-  { username: "Vincent", password: "gothgirls" },
-];
+const { addModule } = require("./modules");
+const { addSite, buildSite } = require("./sites");
 
 const dropTables = async () => {
   try {
@@ -16,7 +11,6 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS modules;
         DROP TABLE IF EXISTS sites;
         DROP TABLE IF EXISTS siteLayouts;
-        DROP TABLE IF EXISTS users;
     `);
     console.log("Finished dropping tables!");
   } catch (error) {
@@ -57,6 +51,16 @@ const rebuildDB = async () => {
   await createTables();
   await createLayout(seedLayout1);
   await createLayout(seedLayout2);
+  await addSite("Catz");
+  await addModule(1, seedLayout2.module1, 1);
+  await addModule(1, seedLayout2.module2, 2);
+  await addModule(1, seedLayout2.module3, 3);
+  await addSite("Dirty Dogs");
+  await addModule(2, seedLayout1.module1, 1);
+  await addModule(2, seedLayout1.module2, 2);
+  await addModule(2, seedLayout1.module3, 3);
+  await addModule(2, seedLayout1.module4, 4);
+  await addModule(2, seedLayout1.module5, 5);
   client.end();
 };
 

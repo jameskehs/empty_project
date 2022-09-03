@@ -1,35 +1,20 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
-import NavBar from "./Components/NavBar/NavBar";
-import Hero from "./Components/Hero/Hero";
-import Collection from "./Components/Collection/Collection";
+import { Link, Route, Routes } from "react-router-dom";
+import Dashboard from "./Components/Dashboard/Dashboard";
+import Site from "./Components/Site/Site";
 
 function App() {
-  const [layout, setLayout] = useState([]);
-
-  useEffect(() => {
-    async function fetchLayout() {
-      const { data } = await axios.get("/api/layouts/2");
-      setLayout(data.layout);
-    }
-
-    fetchLayout();
-  }, []);
-
-  const Components = {
-    NavBar: NavBar,
-    Hero: Hero,
-    Collection: Collection,
-  };
-
   return (
     <div className="App">
-      {layout.length > 0 &&
-        layout.map((component, index) => {
-          component.props.key = index;
-          return React.createElement(Components[component.componentName], component.props);
-        })}
+      <div className="dashboard-link">
+        <Link to="/">Go back to Dashboard</Link>
+      </div>
+
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/site/:siteID" element={<Site />} />
+      </Routes>
     </div>
   );
 }
