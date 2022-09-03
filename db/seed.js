@@ -14,6 +14,7 @@ const dropTables = async () => {
     console.log("Starting to drop tables!");
     await client.query(`
         DROP TABLE IF EXISTS modules;
+        DROP TABLE IF EXISTS sites;
         DROP TABLE IF EXISTS siteLayouts;
         DROP TABLE IF EXISTS users;
     `);
