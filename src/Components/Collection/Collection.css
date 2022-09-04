@@ -1,0 +1,19 @@
+.collection {
+  text-align: center;
+}
+
+.collection-item-container {
+  display: flex;
+  justify-content: center;
+}
+
+.collection-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.collection-item img {
+  max-height: 350px;
+}/*# sourceMappingURL=Collection.css.map */

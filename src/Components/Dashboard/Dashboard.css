@@ -1,0 +1,16 @@
+.dashboard-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.dashboard-links a {
+  width: 175px;
+  text-decoration: none;
+  color: white;
+  background-color: rgb(54, 54, 54);
+  padding: 12px;
+  margin: 8px;
+}
+.dashboard-links a:hover {
+  background-color: rgb(82, 82, 82);
+}/*# sourceMappingURL=Dashboard.css.map */

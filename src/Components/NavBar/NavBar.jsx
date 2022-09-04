@@ -5,8 +5,12 @@ const NavBar = ({ companyName, links }) => {
     <nav>
       <h1>{companyName}</h1>
       <div className="links">
-        {links.map((link) => {
-          return <a href={link.href}>{link.content}</a>;
+        {links.map((link, index) => {
+          return (
+            <a key={index} href={link.href}>
+              {link.content}
+            </a>
+          );
         })}
       </div>
     </nav>

@@ -2,15 +2,31 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: 12px 0;
+
   div {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   h2 {
+    align-self: flex-start;
   }
   img {
     max-width: 760px;
     max-height: 350px;
     object-fit: contain;
+  }
+
+  .hero-btn-container {
+    width: 100%;
+    flex-direction: row;
+    button {
+      padding: 12px;
+      margin: 12px;
+      border-radius: 5px;
+      border: 1px solid black;
+    }
   }
 }

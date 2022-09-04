@@ -1,89 +1,16 @@
-const { client, createUser, createLayout } = require("./index");
-
-const seedUsers = [
-  { username: "Jim", password: "password" },
-  { username: "Josh", password: "1234" },
-  { username: "Heath", password: "69" },
-  { username: "Vincent", password: "gothgirls" },
-];
-
-const seedLayout1 = [
-  {
-    componentName: "NavBar",
-    props: {
-      companyName: "Dirty Dogs",
-      links: [
-        { href: "#Gallery", content: "Woof" },
-        { href: "#Contact", content: "Bark" },
-      ],
-    },
-  },
-  {
-    componentName: "Hero",
-    props: {
-      title: "Woof",
-      body: "woof woof woof woof woof woof woof bark bark woof woof woof woof woof woof woof woof bark bark woof woof woof woof woof woof woof woof bark bark woof",
-      imgSrc: "./assets/HappyPup.jpeg",
-    },
-  },
-  {
-    componentName: "People",
-    props: {
-      title: "TB3 Staff",
-      desc: "Our exceptionally handsome developers",
-      persons:[
-        {name: "Josh" , imgSrc: "./assets/HappyPup.jpeg"},
-        {name: "Jim" , imgSrc: "./assets/businessCat.jpeg"}
-      ]
-    },
-  },
-  {
-    componentName: "Gallery",
-    props: {
-      title: "TB3 Products",
-      imagePairs:[
-        {subtitle: "We sell happy dogs" , imgSrc: "./assets/HappyPup.jpeg"},
-        {subtitle: "Cats sell slaves" , imgSrc: "./assets/businessCat.jpeg"}
-      ]
-    },
-  },
-  {
-    componentName: "Contact",
-    props: {
-      email: "jeathkarnoldbustaorsomethinglikethat@gmail.com",
-      phone: "225-123-4567",
-      address: "1800 bofa lane"
-    },
-  },
-];
-
-const seedLayout2 = [
-  {
-    componentName: "NavBar",
-    props: {
-      companyName: "Catz",
-      links: [
-        { href: "#hero", content: "Meow" },
-        { href: "#about", content: "Hiss" },
-      ],
-    },
-  },
-  {
-    componentName: "Hero",
-    props: {
-      title: "MEOW",
-      body: "Meow meow meow meow meow meow meow meow meow meow meow",
-      imgSrc: "./assets/businessCat.jpeg",
-    },
-  },
-];
+const { client, createLayout } = require("./index");
+const seedLayout1 = require("./layout1");
+const seedLayout2 = require("./layout2");
+const { addModule } = require("./modules");
+const { addSite, buildSite } = require("./sites");
 
 const dropTables = async () => {
   try {
     console.log("Starting to drop tables!");
     await client.query(`
+        DROP TABLE IF EXISTS modules;
+        DROP TABLE IF EXISTS sites;
         DROP TABLE IF EXISTS siteLayouts;
-        DROP TABLE IF EXISTS users;
     `);
     console.log("Finished dropping tables!");
   } catch (error) {
@@ -91,18 +18,25 @@ const dropTables = async () => {
   }
 };
 
+//Leave siteLayouts for now until new structure is confirmed.
 const createTables = async () => {
   try {
     console.log("Creating tables!");
     await client.query(`
-        CREATE TABLE users (
-            id serial PRIMARY KEY,
-            username VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL
-            );
         CREATE TABLE siteLayouts (
           id serial PRIMARY KEY,
           layout jsonb NOT NULL
+        );
+        CREATE TABLE sites (
+          siteID serial PRIMARY KEY,
+          name VARCHAR(255) NOT NULL
+        );
+        CREATE TABLE modules (
+          moduleID serial PRIMARY KEY,
+          module jsonb NOT NULL,
+          sortOrder INT NOT NULL,
+          siteID INT REFERENCES sites(siteID) NOT NULL,
+          UNIQUE (sortOrder, siteID) 
         );
     `);
     console.log("Finished creating tables!");
@@ -115,9 +49,18 @@ const rebuildDB = async () => {
   client.connect();
   await dropTables();
   await createTables();
-  await Promise.all(seedUsers.map((user) => createUser(user.username, user.password)));
   await createLayout(seedLayout1);
   await createLayout(seedLayout2);
+  await addSite("Catz");
+  await addModule(1, seedLayout2.module1, 1);
+  await addModule(1, seedLayout2.module2, 2);
+  await addModule(1, seedLayout2.module3, 3);
+  await addSite("Dirty Dogs");
+  await addModule(2, seedLayout1.module1, 1);
+  await addModule(2, seedLayout1.module2, 2);
+  await addModule(2, seedLayout1.module3, 3);
+  await addModule(2, seedLayout1.module4, 4);
+  await addModule(2, seedLayout1.module5, 5);
   client.end();
 };
 
