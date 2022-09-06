@@ -20,6 +20,9 @@ usersRouter.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await getUserByEmail(email);
+    if (!user) {
+      res.status(401).json("Invalid Credentials");
+    }
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
       const token = await jwt.sign({ userid: user.userid }, process.env.JWT_SECRET);
