@@ -1,4 +1,5 @@
 import "./NavBar.css";
+import { Link} from "react-router-dom";
 
 const NavBar = ({ companyName, links }) => {
   return (
@@ -12,6 +13,9 @@ const NavBar = ({ companyName, links }) => {
             </a>
           );
         })}
+      </div>
+      <div>
+      <Link to="admin">Admin</Link>
       </div>
     </nav>
   );
