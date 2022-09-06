@@ -1,11 +1,8 @@
 const { client } = require("./index");
 
-async function addSite(siteName) {
+async function addSite(siteName, ownerID) {
   try {
-    const { rows } = await client.query(
-      `INSERT INTO sites(name) VALUES ($1) RETURNING *;`,
-      [siteName]
-    );
+    const { rows } = await client.query(`INSERT INTO sites(name, ownerID) VALUES ($1,$2) RETURNING *;`, [siteName, ownerID]);
     return rows;
   } catch (error) {
     console.log("Error adding site");
@@ -25,10 +22,7 @@ async function getAllSites() {
 
 async function buildSite(siteID) {
   try {
-    const { rows } = await client.query(
-      `SELECT * FROM modules WHERE siteID = $1 ORDER BY sortOrder ASC;`,
-      [siteID]
-    );
+    const { rows } = await client.query(`SELECT * FROM modules WHERE siteID = $1 ORDER BY sortOrder ASC;`, [siteID]);
     return rows;
   } catch (error) {
     console.log("Error building site");

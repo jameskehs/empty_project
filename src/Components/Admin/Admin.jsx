@@ -1,13 +1,39 @@
-import "./Admin.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Admin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function loginUser() {
+    try {
+    } catch (error) {
+      throw error;
+    }
+  }
   return (
-    <div className="admin">
-      <h1>Welcome to the Admin Portal</h1>
-    </div>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <input
+        type="text"
+        placeholder="Email Address"
+        value={email}
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => {
+          setPassword(e.target.value);
+        }}
+      />
+      <button>Log In</button>
+    </form>
   );
 };
 
