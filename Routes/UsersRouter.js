@@ -1,42 +1,32 @@
 const express = require("express");
-const { getAllUsers, createUser, deleteUser, updateUser } = require("../db");
 const usersRouter = express.Router();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { createUser, getUserByEmail } = require("../db/users");
 
-usersRouter.get("/all", async (req, res, next) => {
+usersRouter.post("/register", async (req, res, next) => {
   try {
-    const allUsers = await getAllUsers();
-    res.send(allUsers);
+    const { firstName, lastName, email, password } = req.body;
+    const hashedPass = await bcrypt.hash(password, 10);
+    const newUser = await createUser(firstName, lastName, email, hashedPass);
+    const token = jwt.sign({ userid: newUser.userid }, process.env.JWT_SECRET);
+    res.json({ msg: "New User Created!", newUser, token });
   } catch (error) {
     next(error);
   }
 });
 
-usersRouter.post("/", async (req, res, next) => {
+usersRouter.post("/login", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const newUser = await createUser(username, password);
-    res.json({ msg: "New User Created!", newUser });
-  } catch (error) {
-    next(error);
-  }
-});
-
-usersRouter.put("/:userId", async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const { newUsername, newPassword } = req.body;
-    const updatedUser = await updateUser(userId, newUsername, newPassword);
-    res.json({ msg: "User Updated!", updatedUser });
-  } catch (error) {
-    next(error);
-  }
-});
-
-usersRouter.delete("/:userId", async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const deletedUser = await deleteUser(userId);
-    res.json({ msg: "User Deleted!", deletedUser });
+    const { email, password } = req.body;
+    const user = await getUserByEmail(email);
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
+      const token = await jwt.sign({ userid: user.userid }, process.env.JWT_SECRET);
+      res.json({ msg: "Successful sign in", token });
+    } else {
+      res.status(401).json("Invalid Credentials");
+    }
   } catch (error) {
     next(error);
   }
