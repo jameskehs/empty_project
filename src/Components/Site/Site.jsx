@@ -23,18 +23,16 @@ const Site = () => {
     }
     fetchLayout();
   }, []);
+
   return (
     layout.length > 0 &&
     layout.map((component) => {
       const { moduleid, module, sortOrder } = component;
       module.props.key = moduleid;
       if (Components[module.componentName] === undefined) {
-        return;
+        return <></>;
       }
-      return React.createElement(
-        Components[module.componentName],
-        module.props
-      );
+      return React.createElement(Components[module.componentName], module.props);
     })
   );
 };
