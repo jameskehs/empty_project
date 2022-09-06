@@ -3,6 +3,7 @@ import "./App.css";
 import { Link, Route, Routes } from "react-router-dom";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Site from "./Components/Site/Site";
+import Admin from "./Components/Admin/Admin";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/site/:siteID" element={<Site />} />
+        <Route path="/site/:siteID/admin" element={<Admin />} />
       </Routes>
     </div>
   );
