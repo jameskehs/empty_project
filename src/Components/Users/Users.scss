@@ -1,0 +1,17 @@
+#all-users-table {
+  border: 1px solid #eee;
+  td,
+  th {
+    padding: 12px;
+    text-align: left;
+  }
+
+  .user-sites {
+    display: flex;
+    flex-direction: column;
+
+    a {
+      color: #000;
+    }
+  }
+}

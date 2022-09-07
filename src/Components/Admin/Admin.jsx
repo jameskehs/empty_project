@@ -19,6 +19,7 @@ const Admin = () => {
         navigate(`/site/${siteID}`);
       }
     } catch (error) {
+      console.log(error.response.data);
       setErrMsg(error.response.data);
     }
   }

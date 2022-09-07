@@ -2,6 +2,7 @@ import "./Dashboard.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Users from "../Users/Users";
 
 const Dashboard = () => {
   const [allSites, setAllSites] = useState([]);
@@ -22,6 +23,7 @@ const Dashboard = () => {
           return <Link to={`/site/${site.siteid}`}>{site.name}</Link>;
         })}
       </div>
+      <Users />
     </div>
   );
 };
