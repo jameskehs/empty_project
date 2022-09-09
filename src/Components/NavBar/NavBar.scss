@@ -4,7 +4,6 @@ nav {
   align-items: center;
   position: sticky;
   background-color: rgb(48, 48, 48);
-  margin: 0 -250px;
   padding: 24px;
 
   h1 {
@@ -23,4 +22,8 @@ nav {
       }
     }
   }
+}
+
+.admin-link {
+  position: aboslute;
 }

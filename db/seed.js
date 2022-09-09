@@ -26,10 +26,10 @@ const createTables = async () => {
     await client.query(`
       CREATE TABLE users (
         userID serial PRIMARY KEY,
-        firstName VARCHAR(255) NOT NULL,
-        lastName VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL
+        password VARCHAR(255) NOT NULL,
+        superUser BOOL DEFAULT FALSE
       );
       CREATE TABLE sites (
           siteID serial PRIMARY KEY,
@@ -55,9 +55,8 @@ const rebuildDB = async () => {
   client.connect();
   await dropTables();
   await createTables();
-  const Jim = await createUser("Jim", "Kehs", "jameskehsdev@gmail.com", password);
-  console.log(Jim);
-  await createUser("Josh", "Byrd", "joshua133402@gmail.com", password);
+  await createUser("Jimmy Kehs", "jim@gmail.com", password, true);
+  await createUser("Josh Byrd", "josh@gmail.com", password, true);
   await addSite("Dirty Dogs", 1);
   await addModule(1, seedLayout1.module1, 1);
   await addModule(1, seedLayout1.module2, 2);

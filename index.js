@@ -13,7 +13,7 @@ app.use(morgan("dev"));
 app.use("/api", apiRouter);
 
 app.use((err, req, res, next) => {
-  res.status(500).json({ error: "Server Error" });
+  res.status(500).json("Server Error");
 });
 app.listen(PORT, () => {
   console.log(`App is up on port ${PORT}`);
