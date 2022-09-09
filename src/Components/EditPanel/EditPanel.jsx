@@ -15,15 +15,14 @@ const EditPanel = (props) => {
         break;
       case "Collection":
         {
-          const { Title, setTitle } = props;
+          const { Title, setTitle, Desc, setDesc } = props;
           return (
             <div className="EditPanel">
-              <input
-                value={Title}
-                type="Text"
-                placeholder="Title"
-                onChange={(e) => setTitle(e.target.value)}
-              />
+              <h>Collection</h>
+              <br></br>
+              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+              <br></br>
+              <>{GenericTextField("Description", "Desc", Desc, setDesc)}</>
             </div>
           );
         }
@@ -48,7 +47,38 @@ const EditPanel = (props) => {
           );
         }
         break;
+      case "empty":
+        {
+          const { Title, imagePairs } = props;
+          return (
+            <div className="EditPanel">
+              <p>
+                Select an existing website component to edit or Add a website
+                component below
+              </p>
+            </div>
+          );
+        }
+        break;
     }
+  }
+
+  //Creates a simple text field and label for string value
+  function GenericTextField(visualName, id, currValue, onChange) {
+    return (
+      <>
+        <label for={id}>{visualName}</label>
+        <input
+          id={id}
+          value={currValue}
+          type="Text"
+          placeholder={visualName}
+          onChange={(e) => {
+            onChange(e.target.value);
+          }}
+        />
+      </>
+    );
   }
 
   return (
