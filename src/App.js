@@ -15,12 +15,7 @@ function App() {
       <div className="dashboard-link">
         <Link to="/">Go back to Dashboard</Link>
       </div>
-      {/* Need to point to isEditable once thats working, for now just flip it on and off here*/}
-      {true && (
-      <EditPanel
-          componentName="empty"
-        />
-      )}
+      
 
       <Routes>
         <Route path="/" element={<Dashboard />} />
