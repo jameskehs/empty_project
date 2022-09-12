@@ -1,7 +1,6 @@
 import CollectionItem from "./CollectionItem";
-import EditPanel from "../EditPanel/EditPanel";
 import "./Collection.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 const Collection = ({ title, desc, collectionItems }) => {
   const [Title, setTitle] = useState(title);
@@ -26,23 +25,7 @@ const Collection = ({ title, desc, collectionItems }) => {
 
   return (
     <>
-      <EditPanel
-        componentName="Collection"
-        componentID="collection"
-        Title={Title}
-        setTitle={setTitle}
-        Desc={Desc}
-        setDesc={setDesc}
-        DiscardValues={DiscardValues}
-        SaveValues={SaveValues}
-        isAttemptingFocus={isAttemptingFocus}
-        isAttemptingSelection={isAttemptingSelection}
-        setIsAttemptingSelection={setIsAttemptingSelection}
-        setIsFocused={setIsFocused}
-        setIsSelected={setIsSelected}
-      />
       <div
-        id="collection"
         className={GetClass()}
         onClick={() => {
           setIsAttemptingSelection(true);
@@ -54,12 +37,14 @@ const Collection = ({ title, desc, collectionItems }) => {
           setIsAttemptingFocus(false);
         }}
       >
-        <h3>{Title}</h3>
-        <p>{Desc}</p>
-        <div className="collection-item-container">
-          {collectionItems.map((item, index) => {
-            return <CollectionItem key={index} item={item} />;
-          })}
+        <div className="collection-contents">
+          <h2>{Title}</h2>
+          <p className="pOne">{Desc}</p>
+          <div className="collection-item-container">
+            {collectionItems.map((item, index) => {
+              return <CollectionItem key={index} item={item} />;
+            })}
+          </div>
         </div>
       </div>
     </>

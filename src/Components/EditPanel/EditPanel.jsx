@@ -71,8 +71,7 @@ const EditPanel = (props) => {
         break;
       case "Collection":
         {
-          const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } =
-            props;
+          const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } = props;
           return (
             <div className="EditPanel">
               <h1>Collection</h1>
@@ -115,10 +114,7 @@ const EditPanel = (props) => {
           const { Title, imagePairs } = props;
           return (
             <div className="EditPanel">
-              <p>
-                Select an existing website component to edit or Add a website
-                component below
-              </p>
+              <p>Select an existing website component to edit or Add a website component below</p>
               <br></br>
               <label for="addComponents">Add a component:</label>
 
