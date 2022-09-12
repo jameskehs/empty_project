@@ -25,32 +25,35 @@ const Admin = () => {
   }
 
   return (
-    <form
-      id="login"
-      onSubmit={(e) => {
-        e.preventDefault();
-        loginUser();
-      }}
-    >
-      <p className="error">{errMsg}</p>
-      <input
-        type="text"
-        placeholder="Email Address"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
+    <div id="login-container">
+      <h1>Login</h1>
+      <form
+        id="login"
+        onSubmit={(e) => {
+          e.preventDefault();
+          loginUser();
         }}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
-      />
-      <button>Log In</button>
-    </form>
+      >
+        <p className="error">{errMsg}</p>
+        <input
+          type="text"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <button>Log In</button>
+      </form>
+    </div>
   );
 };
 

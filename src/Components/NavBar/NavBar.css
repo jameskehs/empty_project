@@ -1,4 +1,19 @@
 nav {
+  position: -webkit-sticky;
+  position: sticky;
+  padding: 24px;
+}
+
+nav .nav-companyname {
+  font-size: 24px;
+  color: #25293a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+nav #nav-contents {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,28 +23,23 @@ nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  position: -webkit-sticky;
-  position: sticky;
-  background-color: #303030;
-  padding: 24px;
-}
-
-nav h1 {
-  color: #fff;
+  max-width: 1250px;
+  margin: 0 auto;
 }
 
 nav .links a {
   text-decoration: none;
-  color: #fff;
+  -webkit-text-decoration-color: #fff;
+          text-decoration-color: #fff;
+  color: #25293a;
   font-weight: 700;
   padding: 0 12px;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  font-size: 18px;
 }
 
 nav .links a:hover {
-  color: #c1c1c1;
-}
-
-.admin-link {
-  position: aboslute;
+  color: #5175ff;
 }
 /*# sourceMappingURL=NavBar.css.map */

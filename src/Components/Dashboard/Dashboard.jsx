@@ -21,12 +21,16 @@ const Dashboard = () => {
       <EditPanel componentName="hidden" />
       <div className="dashboard">
         <h1>Welcome to the Dashboard</h1>
-        <div className="dashboard-links">
+        <div className="sites-container">
+          <h3>All Sites</h3>
           {allSites.map((site) => {
             return <Link to={`/site/${site.siteid}`}>{site.name}</Link>;
           })}
         </div>
-        <Users />
+        <div className="users-container">
+          <h3>Users</h3>
+          <Users />
+        </div>
       </div>
     </>
   );

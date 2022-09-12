@@ -67,6 +67,8 @@ const rebuildDB = async () => {
   await addModule(2, seedLayout2.module1, 1);
   await addModule(2, seedLayout2.module2, 2);
   await addModule(2, seedLayout2.module3, 3);
+  await addModule(2, seedLayout2.module4, 4);
+
   client.end();
 };
 

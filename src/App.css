@@ -1,15 +1,82 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .App {
-  font-family: "Poppins", sans-serif;
-  position: relative;
+  font-family: "Kumbh Sans", sans-serif;
+  background-color: #fafafa;
+}
+
+.App h1 {
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 64px;
+  color: #333950;
+}
+
+.App h2 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 28px;
+  color: #747b95;
+}
+
+.App h3 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 48px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #747b95;
+}
+
+.App p.pOne {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: #747b95;
+}
+
+.App p.pTwo {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+  color: #747b95;
 }
 
 .dashboard-link {
+  position: -webkit-sticky;
   position: sticky;
+  bottom: 50px;
+  left: 50px;
   text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  background-color: #eee;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
+
+.dashboard-link:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.dashboard-link a {
+  text-decoration: none;
+  color: #454545;
+}
+/*# sourceMappingURL=App.css.map */

@@ -1,0 +1,72 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  font-family: "Kumbh Sans", sans-serif;
+  background-color: #fafafa;
+
+  h1 {
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 64px;
+    color: #333950;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 28px;
+    color: #747b95;
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 48px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #747b95;
+  }
+
+  p.pOne {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: #747b95;
+  }
+  p.pTwo {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 28px;
+    color: #747b95;
+  }
+}
+
+.dashboard-link {
+  position: sticky;
+  bottom: 50px;
+  left: 50px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  background-color: #eee;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgb(69, 69, 69);
+  }
+}

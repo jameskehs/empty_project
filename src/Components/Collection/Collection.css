@@ -1,27 +1,56 @@
 .collection {
   text-align: center;
+  padding: 48px 0;
+  background-color: #25293a;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-.collection-focused{
-  text-align: center;
-  background-color: rosybrown;
+.collection .collection-contents {
+  max-width: 1250px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-.collection-selected{
-  text-align: center;
-  background-color: red;
+.collection .collection-contents h2 {
+  color: #fafafa;
+  padding: 8px 0;
 }
 
-.collection-item-container {
+.collection .collection-contents p {
+  color: #e3e3e3;
+}
+
+.collection .collection-item-container {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
-.collection-item {
+.collection .collection-item-container .collection-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,11 +64,23 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  margin: 24px;
 }
 
-.collection-item img {
+.collection .collection-item-container .collection-item img {
   max-height: 350px;
+}
+
+.collection .collection-item-container .collection-item h3 {
+  font-weight: 700;
+  color: #fff;
+}
+
+.collection .collection-item-container .collection-item p.pTwo {
+  font-weight: 700;
+  color: #5175ff;
+  background-color: #333950;
+  padding: 8px 24px;
+  border-radius: 28px;
 }
 /*# sourceMappingURL=Collection.css.map */
