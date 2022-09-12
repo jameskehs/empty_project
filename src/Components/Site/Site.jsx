@@ -5,6 +5,7 @@ import axios from "axios";
 import NavBar from "../NavBar/NavBar";
 import Hero from "../Hero/Hero";
 import Collection from "../Collection/Collection";
+import EditPanel from "../EditPanel/EditPanel";
 
 const Components = {
   NavBar: NavBar,
@@ -32,7 +33,10 @@ const Site = () => {
       if (Components[module.componentName] === undefined) {
         return <></>;
       }
-      return React.createElement(Components[module.componentName], module.props);
+      return React.createElement(
+        Components[module.componentName],
+        module.props
+      );
     })
   );
 };

@@ -2,6 +2,16 @@
   text-align: center;
 }
 
+.collection-focused{
+  text-align: center;
+  background-color: rosybrown;
+}
+
+.collection-selected{
+  text-align: center;
+  background-color: red;
+}
+
 .collection-item-container {
   display: -webkit-box;
   display: -ms-flexbox;
