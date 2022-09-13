@@ -1,35 +1,25 @@
 nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   position: -webkit-sticky;
   position: sticky;
-  background-color: #303030;
+  background-color: rgb(48, 48, 48);
   padding: 24px;
 }
-
 nav h1 {
   color: #fff;
 }
-
 nav .links a {
   text-decoration: none;
   color: #fff;
   font-weight: 700;
   padding: 0 12px;
 }
-
 nav .links a:hover {
-  color: #c1c1c1;
+  color: rgb(193, 193, 193);
 }
 
 .admin-link {
   position: aboslute;
-}
-/*# sourceMappingURL=NavBar.css.map */
+}/*# sourceMappingURL=NavBar.css.map */

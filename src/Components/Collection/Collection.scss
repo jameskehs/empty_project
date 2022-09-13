@@ -1,6 +1,16 @@
-.collection {
-  text-align: center;
+#collection {
+  text-align: center; 
 }
+
+.collection-focused{
+  background-color: rosybrown;
+}
+
+.collection-selected{
+  background-color: red;
+}
+
+
 
 .collection-item-container {
   display: flex;

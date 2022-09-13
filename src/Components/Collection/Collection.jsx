@@ -1,57 +1,67 @@
 import CollectionItem from "./CollectionItem";
-import EditPanel from "../EditPanel/EditPanel";
+import EditPanel, {
+  AttemptFocus,
+  RemoveFocus,
+  AttemptSelection,
+  ToggleHidenEditPanel,
+} from "../EditPanel/EditPanel";
 import "./Collection.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 
 const Collection = ({ title, desc, collectionItems }) => {
+  //Module states
   const [Title, setTitle] = useState(title);
   const [Desc, setDesc] = useState(desc);
-  const [isAttemptingFocus, setIsAttemptingFocus] = useState(false);
-  const [isAttemptingSelection, setIsAttemptingSelection] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
 
-  function SaveValues() {}
-  function DiscardValues() {}
+  //Editing states
+  const [editState, setEditState] = useState("none");
+
+  function SaveValues() {
+    setEditState("none");
+  }
+  function DiscardValues() {
+    setEditState("none");
+  }
 
   function GetClass() {
-    if (isSelected) {
+    if (editState == "selected") {
       return "collection-selected";
-    } else if (isFocused) {
+    } else if (editState == "focused") {
       return "collection-focused";
     } else {
-      return "collection";
+      return "";
     }
   }
 
+  ToggleHidenEditPanel(false);
   return (
     <>
-      <EditPanel
-        componentName="Collection"
-        componentID="collection"
-        Title={Title}
-        setTitle={setTitle}
-        Desc={Desc}
-        setDesc={setDesc}
-        DiscardValues={DiscardValues}
-        SaveValues={SaveValues}
-        isAttemptingFocus={isAttemptingFocus}
-        isAttemptingSelection={isAttemptingSelection}
-        setIsAttemptingSelection={setIsAttemptingSelection}
-        setIsFocused={setIsFocused}
-        setIsSelected={setIsSelected}
-      />
+      {editState == "selected" && (
+        <EditPanel
+          componentName="Collection"
+          componentID="collection"
+          Title={Title}
+          setTitle={setTitle}
+          Desc={Desc}
+          setDesc={setDesc}
+          SaveValues={SaveValues}
+          DiscardValues={DiscardValues}
+        />
+      )}
       <div
         id="collection"
         className={GetClass()}
         onClick={() => {
-          setIsAttemptingSelection(true);
+          setEditState(AttemptSelection("collection") ? "selected" : editState);
         }}
         onMouseEnter={() => {
-          setIsAttemptingFocus(true);
+          setEditState(AttemptFocus("collection") ? "focused" : editState);
         }}
         onMouseLeave={() => {
-          setIsAttemptingFocus(false);
+          RemoveFocus();
+          if (editState != "selected") {
+            setEditState("none");
+          }
         }}
       >
         <h3>{Title}</h3>

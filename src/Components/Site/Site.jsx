@@ -16,7 +16,7 @@ const Components = {
 const Site = () => {
   const { siteID } = useParams();
   const [layout, setLayout] = useState([]);
-
+  const [editEmpty, setEditEmpty] = useState(true);
   useEffect(() => {
     async function fetchLayout() {
       const { data } = await axios.get(`/api/layouts/${siteID}`);
@@ -26,18 +26,21 @@ const Site = () => {
   }, []);
 
   return (
-    layout.length > 0 &&
-    layout.map((component) => {
-      const { moduleid, module, sortOrder } = component;
-      module.props.key = moduleid;
-      if (Components[module.componentName] === undefined) {
-        return <></>;
-      }
-      return React.createElement(
-        Components[module.componentName],
-        module.props
-      );
-    })
+    <>
+      {editEmpty && <EditPanel componentName="empty" componentID="empty" />}
+      {layout.length > 0 &&
+        layout.map((component) => {
+          const { moduleid, module, sortOrder } = component;
+          module.props.key = moduleid;
+          if (Components[module.componentName] === undefined) {
+            return <></>;
+          }
+          return React.createElement(
+            Components[module.componentName],
+            module.props
+          );
+        })}
+    </>
   );
 };
 
