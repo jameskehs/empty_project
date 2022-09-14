@@ -12,7 +12,7 @@ const Hero = (props) => {
   //Module states
   const [Title, setTitle] = useState(props.title);
   const [Body, setBody] = useState(props.body);
-  const [imgSrc, setImgSrc] = useState(props.imgSrc);
+  const [ImgSrc, setImgSrc] = useState(props.imgSrc);
   const [buttons, setButtons] = useState(props.buttons);
 
   //Editing states
