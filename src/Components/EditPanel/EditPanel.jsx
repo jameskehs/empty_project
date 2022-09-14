@@ -1,6 +1,6 @@
 import "./EditPanel.css";
 import { useEffect, useState, createContext, useContext } from "react";
-import { SetEditPanelProps } from "../Site/Site";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 var currFocusedComponentID = "";
 var currSelectedComponentID = "";
@@ -52,21 +52,39 @@ function FinishEditingComponent() {
 const EditPanel = (props) => {
   function ShowComponentProperties() {
     console.log("Filling out edit panel with component: " + props.componentID);
+
+    //These are used for empty component only
+    const defaultList = ["A", "B", "C", "D", "E"];
+    const [itemList, setItemList] = useState(defaultList);
+
     switch (props.componentName) {
       case "Hero":
         {
-          const { Title, setTitle, Body, setBody, DiscardValues, SaveValues } =
-            props;
+          const {
+            Title,
+            setTitle,
+            Body,
+            setBody,
+            ImgSrc,
+            setImgSrc,
+            DiscardValues,
+            SaveValues,
+          } = props;
+
           return (
-            <div className="EditPanel">
-              <h1>Hero</h1>
-              <br></br>
-              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-              <br></br>
-              <>{GenericTextField("Body", "Body", Body, setBody)}</>
-              <br></br>
-              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-            </div>
+            <>
+              <div className="EditPanel">
+                <h1>Hero</h1>
+                <br></br>
+                <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+                <br></br>
+                <>{GenericTextField("Body", "Body", Body, setBody)}</>
+                <br></br>
+                <>{ImageUpload("Picture", "heroPic", ImgSrc, setImgSrc)}</>
+                <br></br>
+                <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+              </div>
+            </>
           );
         }
         break;
@@ -122,22 +140,50 @@ const EditPanel = (props) => {
         break;
       case "empty":
         {
-          const { Title, imagePairs } = props;
-          return (
-            <div className="EditPanel">
-              <p>
-                Select an existing website component to edit or Add a website
-                component below
-              </p>
-              <br></br>
-              <label for="addComponents">Add a component:</label>
+          const handleDrop = (droppedItem) => {
+            // Ignore drop outside droppable container
+            if (!droppedItem.destination) return;
+            var updatedList = [...itemList];
+            // Remove dragged item
+            const [reorderedItem] = updatedList.splice(
+              droppedItem.source.index,
+              1
+            );
+            // Add dropped item
+            updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
+            // Update State
+            setItemList(updatedList);
+          };
 
-              <select name="addComponents" id="addComponents">
-                <option value="Hero">Hero</option>
-                <option value="Collection">Collection</option>
-                <option value="Contact">Contact</option>
-                <option value="Gallery">Gallery</option>
-              </select>
+          return (
+            <div className="EditPanelAddModules">
+              <DragDropContext onDragEnd={handleDrop}>
+                <Droppable droppableId="list-container">
+                  {(provided) => (
+                    <div
+                      className="list-container"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {itemList.map((item, index) => (
+                        <Draggable key={item} draggableId={item} index={index}>
+                          {(provided) => (
+                            <div
+                              className="item-container"
+                              ref={provided.innerRef}
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                            >
+                              {item}
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
           );
         }
@@ -181,6 +227,42 @@ const EditPanel = (props) => {
             onChange(e.target.value);
           }}
         />
+      </>
+    );
+  }
+
+  //Creates a simple image upload field
+  function ImageUpload(visualName, id, imgSrc, onChange) {
+    return (
+      <>
+        <p>{visualName}</p>
+        <label for={id}>{imgSrc}</label>
+        <input
+          type="file"
+          name={id}
+          onChange={(event) => {
+            console.log(event.target.files[0]);
+            onChange("/assets/" + event.target.files[0].name);
+          }}
+          accept=".jpg,.jpeg,.png"
+        ></input>
+      </>
+    );
+  }
+
+  //Creates a simple image upload field with subtext
+  function ImageUploadWithSubtext(
+    visualName,
+    id,
+    imgSrc,
+    onChange,
+    subText,
+    setSubText
+  ) {
+    return (
+      <>
+        <>{ImageUpload(visualName, id, imgSrc, onChange)}</>
+        <>{GenericTextField("SubText", "subText", subText, setSubText)}</>
       </>
     );
   }

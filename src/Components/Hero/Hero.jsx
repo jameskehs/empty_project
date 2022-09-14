@@ -7,16 +7,25 @@ import EditPanel, {
   ToggleHidenEditPanel,
 } from "../EditPanel/EditPanel";
 
-const Hero = ({ title, body, imgSrc, buttons }) => {
+const Hero = ({ UID, title, body, imgSrc, buttons }) => {
   //Module states
   const [Title, setTitle] = useState(title);
   const [Body, setBody] = useState(body);
-
+  const [ImgSrc, setImgSrc] = useState(imgSrc);
   //Editing states
   const [editState, setEditState] = useState("none");
 
   function SaveValues() {
     setEditState("none");
+    console.error(UID);
+    var module = {
+      componentName: "Hero",
+      props: {
+        title: Title,
+        body: Body,
+        imgSrc: ImgSrc,
+      },
+    };
   }
   function DiscardValues() {
     setEditState("none");
@@ -42,6 +51,8 @@ const Hero = ({ title, body, imgSrc, buttons }) => {
           setTitle={setTitle}
           Body={Body}
           setBody={setBody}
+          ImgSrc={ImgSrc}
+          setImgSrc={setImgSrc}
           SaveValues={SaveValues}
           DiscardValues={DiscardValues}
         />
@@ -73,7 +84,7 @@ const Hero = ({ title, body, imgSrc, buttons }) => {
                 })}
             </div>
           </div>
-          <img src={imgSrc} alt="" />
+          <img src={ImgSrc} alt="" />
         </div>
       </div>
     </>

@@ -29,11 +29,15 @@ const Site = () => {
 
   return (
     <>
-      {editEmpty && <EditPanel componentName="empty" componentID="empty" />}
+      {editEmpty && (
+        <EditPanel componentName="empty" componentID="empty" layout={layout} />
+      )}
       {layout.length > 0 &&
         layout.map((component) => {
           const { moduleid, module, sortOrder } = component;
           module.props.key = moduleid;
+          module.props.UID = moduleid;
+          module.props.sortOrder = sortOrder;
           if (Components[module.componentName] === undefined) {
             return <></>;
           }
