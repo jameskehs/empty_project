@@ -1,77 +1,79 @@
 import "./EditPanel.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
+import { SetEditPanelProps } from "../Site/Site";
 
-var currFocusedComponent = "";
-var currSelectedComponent = "";
-var currSelectedProps = null;
+var currFocusedComponentID = "";
+var currSelectedComponentID = "";
+
+var isHidden = false;
+
+export function AttemptFocus(componentID) {
+  if (currSelectedComponentID == "" || currSelectedComponentID == "empty") {
+    currFocusedComponentID = componentID;
+    console.log("Focused component: " + componentID);
+    return true;
+  } else {
+    return false;
+  }
+}
+export function RemoveFocus(componentID) {
+  if (currFocusedComponentID == componentID) {
+    currFocusedComponentID = "";
+    console.log("Unfocused component: " + componentID);
+  }
+}
+
+export function AttemptSelection(componentID) {
+  var selectionAllowed =
+    currSelectedComponentID == "" ||
+    currSelectedComponentID == "empty" ||
+    currSelectedComponentID == componentID;
+
+  if (selectionAllowed) {
+    console.log("Selected component: " + componentID);
+    currSelectedComponentID = componentID;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export function ToggleHidenEditPanel(status) {
+  console.log("Edit Panel hiddens status: " + status);
+  isHidden = status;
+}
+
+function FinishEditingComponent() {
+  console.log("Finished editing component: " + currSelectedComponentID);
+  currSelectedComponentID = "";
+  currFocusedComponentID = "";
+}
 
 const EditPanel = (props) => {
-  function HandleFocusAndSelection() {
-    //Handle focus
-    if (props.isAttemptingFocus) {
-      if (currSelectedComponent == "") {
-        currFocusedComponent = props.componentID;
-        props.setIsFocused(true);
-      } else {
-        props.setIsFocused(false);
-      }
-    } else {
-      props.setIsFocused(false);
-    }
-
-    //Handle selection
-    if (props.isAttemptingSelection) {
-      if (currSelectedComponent == "") {
-        currSelectedComponent = props.componentID;
-        currSelectedProps = props;
-        currSelectedProps.setIsFocused(false);
-        currSelectedProps.setIsSelected(true);
-        currSelectedProps.setIsAttemptingSelection(false);
-      } else if (currSelectedComponent == props.componentID) {
-        //do nothing
-        currSelectedProps.setIsAttemptingSelection(false);
-      } else {
-        props.setIsAttemptingSelection(false);
-        currSelectedProps.setIsSelected(false);
-      }
-    }
-
-    if (currSelectedProps == null) {
-      props = { componentName: "empty", componentID: "empty" };
-      currSelectedProps = props;
-    }
-  }
-
-  function FinishEditingComponent() {
-    currSelectedProps.setIsFocused(false);
-    currSelectedProps.setIsSelected(false);
-    currSelectedProps.setIsAttemptingSelection(false);
-    currSelectedProps = null;
-    currFocusedComponent = "";
-    currSelectedComponent = "";
-  }
-
   function ShowComponentProperties() {
-    if (props.componentID != currSelectedProps.componentID) {
-      props = currSelectedProps;
-    }
-
+    console.log("Filling out edit panel with component: " + props.componentID);
     switch (props.componentName) {
       case "Hero":
         {
-          const { Title, body, imgSrc, buttons } = props;
+          const { Title, setTitle, Body, setBody, DiscardValues, SaveValues } =
+            props;
           return (
             <div className="EditPanel">
-              <p>{Title}</p>
+              <h1>Hero</h1>
               <br></br>
-              <></>
+              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+              <br></br>
+              <>{GenericTextField("Body", "Body", Body, setBody)}</>
+              <br></br>
+              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
             </div>
           );
         }
         break;
       case "Collection":
         {
-          const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } = props;
+          const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } =
+            props;
           return (
             <div className="EditPanel">
               <h1>Collection</h1>
@@ -99,12 +101,21 @@ const EditPanel = (props) => {
         break;
       case "Gallery":
         {
-          const { Title, imagePairs } = props;
+          const {
+            Title,
+            setTitle,
+            Images,
+            setImages,
+            SaveValues,
+            DiscardValues,
+          } = props;
           return (
             <div className="EditPanel">
-              <p>{Title}</p>
+              <h1>Gallery</h1>
               <br></br>
-              <></>
+              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+              <br></br>
+              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
             </div>
           );
         }
@@ -114,7 +125,10 @@ const EditPanel = (props) => {
           const { Title, imagePairs } = props;
           return (
             <div className="EditPanel">
-              <p>Select an existing website component to edit or Add a website component below</p>
+              <p>
+                Select an existing website component to edit or Add a website
+                component below
+              </p>
               <br></br>
               <label for="addComponents">Add a component:</label>
 
@@ -171,27 +185,22 @@ const EditPanel = (props) => {
     );
   }
 
-  if (props.componentName == "hidden") {
-    return;
-  } else {
-    return (
-      <>
-        {HandleFocusAndSelection()}
-        <div className="sidenav">
-          <h1>Edit Panel</h1>
-          <p>Welcome! Make changes to your website here!</p>
-          <br></br>
-          <hr></hr>
-          <br></br>
-          {ShowComponentProperties()}
-          <br></br>
-          <hr></hr>
-          <br></br>
-          <p>Global options</p>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <div className="sidenav" hidden={isHidden}>
+        <h1>Edit Panel</h1>
+        <p>Welcome! Make changes to your website here!</p>
+        <br></br>
+        <hr></hr>
+        <br></br>
+        {ShowComponentProperties()}
+        <br></br>
+        <hr></hr>
+        <br></br>
+        <p>Global options</p>
+      </div>
+    </>
+  );
 };
 
 export default EditPanel;

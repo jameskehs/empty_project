@@ -4,62 +4,35 @@
   max-width: 1250px;
   margin: auto;
 }
-
 .hero .hero-contents {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-around;
+  align-items: center;
 }
-
 .hero .hero-contents div {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 .hero .hero-contents h1 {
-  -ms-flex-item-align: start;
-      align-self: flex-start;
+  align-self: flex-start;
   color: #333950;
 }
-
 .hero .hero-contents p {
   max-width: 400px;
 }
-
 .hero .hero-contents img {
   max-width: 760px;
   max-height: 350px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-
 .hero .hero-contents .hero-btn-container {
   width: 100%;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
 }
-
 .hero .hero-contents .hero-btn-container button {
   margin-top: 24px;
   margin-right: 12px;
@@ -69,15 +42,19 @@
   background-color: #5175ff;
   color: #fff;
   font-size: 16px;
-  -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   font-weight: 700;
-  -webkit-box-shadow: 0px 25px 25px -10px rgba(63, 91, 194, 0.141);
-          box-shadow: 0px 25px 25px -10px rgba(63, 91, 194, 0.141);
+  box-shadow: 0px 25px 25px -10px rgba(63, 91, 194, 0.141);
 }
-
 .hero .hero-contents .hero-btn-container button:hover {
   background-color: #829cff;
   cursor: pointer;
 }
-/*# sourceMappingURL=Hero.css.map */
+
+.focused {
+  background-color: rosybrown;
+}
+
+.selected {
+  background-color: red;
+}/*# sourceMappingURL=Hero.css.map */
