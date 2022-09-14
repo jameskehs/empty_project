@@ -1,14 +1,16 @@
 .hero {
   margin: 6px 0;
   padding: 48px 0;
-  max-width: 1250px;
   margin: auto;
+  position: relative;
+  width: 100%;
 
   .hero-contents {
     display: flex;
     justify-content: space-around;
     align-items: center;
-
+    max-width: 1250px;
+    margin: 0 auto;
     div {
       display: flex;
       flex-direction: column;

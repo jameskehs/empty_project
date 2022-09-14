@@ -1,24 +1,15 @@
 #all-users-table {
   border: 1px solid #eee;
 }
-
 #all-users-table td,
 #all-users-table th {
   padding: 12px;
   text-align: left;
 }
-
 #all-users-table .user-sites {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
-
 #all-users-table .user-sites a {
   color: #000;
-}
-/*# sourceMappingURL=Users.css.map */
+}/*# sourceMappingURL=Users.css.map */

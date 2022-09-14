@@ -6,6 +6,8 @@ import NavBar from "../NavBar/NavBar";
 import Hero from "../Hero/Hero";
 import Collection from "../Collection/Collection";
 import Gallery from "../Gallery/Gallery";
+import EditPanel from "../EditPanel/EditPanel";
+import "./Site.css";
 
 const Components = {
   NavBar: NavBar,
@@ -17,6 +19,7 @@ const Components = {
 const Site = () => {
   const { siteID } = useParams();
   const [layout, setLayout] = useState([]);
+  const [editEmpty, setEditEmpty] = useState(true);
 
   useEffect(() => {
     async function fetchLayout() {
@@ -28,15 +31,18 @@ const Site = () => {
 
   return (
     <>
-      {layout.length > 0 &&
-        layout.map((component) => {
-          const { moduleid, module, sortOrder } = component;
-          module.props.key = moduleid;
-          if (Components[module.componentName] === undefined) {
-            return <></>;
-          }
-          return React.createElement(Components[module.componentName], module.props);
-        })}
+      {editEmpty && <EditPanel componentName="empty" componentID="empty" />}
+      <div style={{ width: "80%" }}>
+        {layout.length > 0 &&
+          layout.map((component) => {
+            const { moduleid, module, sortOrder } = component;
+            module.props.key = moduleid;
+            if (Components[module.componentName] === undefined) {
+              return <></>;
+            }
+            return React.createElement(Components[module.componentName], module.props);
+          })}
+      </div>
       <div className="dashboard-link">
         <Link to="/">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
