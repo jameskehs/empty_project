@@ -3,6 +3,7 @@ const LayoutsRouter = require("./LayoutsRouter");
 const usersRouter = require("./UsersRouter");
 const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
+const modulesRouter = require("./ModulesRouter");
 
 apiRouter.use(async (req, res, next) => {
   try {
@@ -30,5 +31,6 @@ apiRouter.use(async (req, res, next) => {
 
 apiRouter.use("/users", usersRouter);
 apiRouter.use("/layouts", LayoutsRouter);
+apiRouter.use("/modules", modulesRouter);
 
 module.exports = apiRouter;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import NavBar from "../NavBar/NavBar";
 import Hero from "../Hero/Hero";
@@ -8,6 +8,7 @@ import Collection from "../Collection/Collection";
 import Gallery from "../Gallery/Gallery";
 import EditPanel from "../EditPanel/EditPanel";
 import "./Site.css";
+import { createContext } from "react";
 
 const Components = {
   NavBar: NavBar,
@@ -16,23 +17,31 @@ const Components = {
   Gallery: Gallery,
 };
 
+export const isLoggedInContext = createContext();
+
 const Site = () => {
   const { siteID } = useParams();
   const [layout, setLayout] = useState([]);
   const [editEmpty, setEditEmpty] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     async function fetchLayout() {
       const { data } = await axios.get(`/api/layouts/${siteID}`);
       setLayout(data);
     }
+
+    if (localStorage.getItem("JKJBJWT") !== null) {
+      setIsLoggedIn(true);
+    }
+
     fetchLayout();
   }, []);
 
   return (
-    <>
-      {editEmpty && <EditPanel componentName="empty" componentID="empty" />}
-      <div style={{ width: "80%" }}>
+    <isLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      {editEmpty && isLoggedIn && <EditPanel componentName="empty" componentID="empty" />}
+      <div style={isLoggedIn ? { width: "80%" } : { width: "100%" }}>
         {layout.length > 0 &&
           layout.map((component) => {
             const { moduleid, module, sortOrder } = component;
@@ -51,7 +60,7 @@ const Site = () => {
           </svg>
         </Link>
       </div>
-    </>
+    </isLoggedInContext.Provider>
   );
 };
 

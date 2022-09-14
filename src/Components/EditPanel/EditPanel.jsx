@@ -1,14 +1,14 @@
 import "./EditPanel.css";
 import { useEffect, useState, createContext, useContext } from "react";
-import { SetEditPanelProps } from "../Site/Site";
+import { isLoggedInContext, SetEditPanelProps } from "../Site/Site";
 
-var currFocusedComponentID = "";
-var currSelectedComponentID = "";
+let currFocusedComponentID = "";
+let currSelectedComponentID = "";
 
-var isHidden = false;
+let isHidden = false;
 
 export function AttemptFocus(componentID) {
-  if (currSelectedComponentID == "" || currSelectedComponentID == "empty") {
+  if (currSelectedComponentID === "" || currSelectedComponentID === "empty") {
     currFocusedComponentID = componentID;
     console.log("Focused component: " + componentID);
     return true;
@@ -17,17 +17,14 @@ export function AttemptFocus(componentID) {
   }
 }
 export function RemoveFocus(componentID) {
-  if (currFocusedComponentID == componentID) {
+  if (currFocusedComponentID === componentID) {
     currFocusedComponentID = "";
     console.log("Unfocused component: " + componentID);
   }
 }
 
 export function AttemptSelection(componentID) {
-  var selectionAllowed =
-    currSelectedComponentID == "" ||
-    currSelectedComponentID == "empty" ||
-    currSelectedComponentID == componentID;
+  var selectionAllowed = currSelectedComponentID === "" || currSelectedComponentID === "empty" || currSelectedComponentID === componentID;
 
   if (selectionAllowed) {
     console.log("Selected component: " + componentID);
@@ -50,98 +47,81 @@ function FinishEditingComponent() {
 }
 
 const EditPanel = (props) => {
+  const { isLoggedIn } = useContext(isLoggedInContext);
+
   function ShowComponentProperties() {
     console.log("Filling out edit panel with component: " + props.componentID);
     switch (props.componentName) {
-      case "Hero":
-        {
-          const { Title, setTitle, Body, setBody, DiscardValues, SaveValues } =
-            props;
-          return (
-            <div className="EditPanel">
-              <h1>Hero</h1>
-              <br></br>
-              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-              <br></br>
-              <>{GenericTextField("Body", "Body", Body, setBody)}</>
-              <br></br>
-              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-            </div>
-          );
-        }
-        break;
-      case "Collection":
-        {
-          const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } =
-            props;
-          return (
-            <div className="EditPanel">
-              <h1>Collection</h1>
-              <br></br>
-              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-              <br></br>
-              <>{GenericTextField("Description", "Desc", Desc, setDesc)}</>
-              <br></br>
-              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-            </div>
-          );
-        }
-        break;
-      case "Contact":
-        {
-          const { email, phone, address } = props;
-          return (
-            <div className="EditPanel">
-              <h1>Contact</h1>
-              <br></br>
-              <></>
-            </div>
-          );
-        }
-        break;
-      case "Gallery":
-        {
-          const {
-            Title,
-            setTitle,
-            Images,
-            setImages,
-            SaveValues,
-            DiscardValues,
-          } = props;
-          return (
-            <div className="EditPanel">
-              <h1>Gallery</h1>
-              <br></br>
-              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-              <br></br>
-              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-            </div>
-          );
-        }
-        break;
-      case "empty":
-        {
-          const { Title, imagePairs } = props;
-          return (
-            <div className="EditPanel">
-              <p>
-                Select an existing website component to edit or Add a website
-                component below
-              </p>
-              <br></br>
-              <label for="addComponents">Add a component:</label>
+      case "Hero": {
+        const { Title, setTitle, Body, setBody, DiscardValues, SaveValues } = props;
+        return (
+          <div className="EditPanel">
+            <h1>Hero</h1>
+            <br></br>
+            <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+            <br></br>
+            <>{GenericTextField("Body", "Body", Body, setBody)}</>
+            <br></br>
+            <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+          </div>
+        );
+      }
+      case "Collection": {
+        const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } = props;
+        return (
+          <div className="EditPanel">
+            <h1>Collection</h1>
+            <br></br>
+            <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+            <br></br>
+            <>{GenericTextField("Description", "Desc", Desc, setDesc)}</>
+            <br></br>
+            <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+          </div>
+        );
+      }
+      case "Contact": {
+        const { email, phone, address } = props;
+        return (
+          <div className="EditPanel">
+            <h1>Contact</h1>
+            <br></br>
+            <></>
+          </div>
+        );
+      }
+      case "Gallery": {
+        const { Title, setTitle, Images, setImages, SaveValues, DiscardValues } = props;
+        return (
+          <div className="EditPanel">
+            <h1>Gallery</h1>
+            <br></br>
+            <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+            <br></br>
+            <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+          </div>
+        );
+      }
+      case "empty": {
+        const { Title, imagePairs } = props;
+        return (
+          <div className="EditPanel">
+            <p>Select an existing website component to edit or Add a website component below</p>
+            <br></br>
+            <label htmlFor="addComponents">Add a component:</label>
 
-              <select name="addComponents" id="addComponents">
-                <option value="Hero">Hero</option>
-                <option value="Collection">Collection</option>
-                <option value="Contact">Contact</option>
-                <option value="Gallery">Gallery</option>
-              </select>
-            </div>
-          );
-        }
-        break;
+            <select name="addComponents" id="addComponents">
+              <option value="Hero">Hero</option>
+              <option value="Collection">Collection</option>
+              <option value="Contact">Contact</option>
+              <option value="Gallery">Gallery</option>
+            </select>
+          </div>
+        );
+      }
+      default: {
+        return "";
+      }
     }
   }
 
@@ -171,7 +151,7 @@ const EditPanel = (props) => {
   function GenericTextField(visualName, id, currValue, onChange) {
     return (
       <>
-        <label for={id}>{visualName}</label>
+        <label htmlFor={id}>{visualName}</label>
         <input
           id={id}
           value={currValue}
@@ -187,18 +167,20 @@ const EditPanel = (props) => {
 
   return (
     <>
-      <div className="sidenav" hidden={isHidden}>
-        <h1>Edit Panel</h1>
-        <p>Welcome! Make changes to your website here!</p>
-        <br></br>
-        <hr></hr>
-        <br></br>
-        {ShowComponentProperties()}
-        <br></br>
-        <hr></hr>
-        <br></br>
-        <p>Global options</p>
-      </div>
+      {isLoggedIn && (
+        <div className="sidenav" hidden={isHidden}>
+          <h1>Edit Panel</h1>
+          <p>Welcome! Make changes to your website here!</p>
+          <br></br>
+          <hr></hr>
+          <br></br>
+          {ShowComponentProperties()}
+          <br></br>
+          <hr></hr>
+          <br></br>
+          <p>Global options</p>
+        </div>
+      )}
     </>
   );
 };

@@ -2,10 +2,13 @@ import "./Hero.css";
 import React, { useEffect, useRef, useState } from "react";
 import EditPanel, { AttemptFocus, RemoveFocus, AttemptSelection, ToggleHidenEditPanel } from "../EditPanel/EditPanel";
 
-const Hero = ({ title, body, imgSrc, buttons }) => {
+const Hero = (props) => {
+  console.log(props);
   //Module states
-  const [Title, setTitle] = useState(title);
-  const [Body, setBody] = useState(body);
+  const [Title, setTitle] = useState(props.title);
+  const [Body, setBody] = useState(props.body);
+  const [imgSrc, setImgSrc] = useState(props.imgSrc);
+  const [buttons, setButtons] = useState(props.buttons);
 
   //Editing states
   const [editState, setEditState] = useState("none");
