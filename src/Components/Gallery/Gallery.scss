@@ -1,9 +1,13 @@
 .gallery {
-  max-width: 1250px;
-  margin: 24px auto;
-  padding: 12px 0;
+  width: 100%;
+  padding: 24px 0;
   text-align: center;
+  position: relative;
 
+  .gallery-contents {
+    max-width: 1250px;
+    margin: 0 auto;
+  }
   .gallery-img-container {
     display: flex;
     justify-content: center;
@@ -21,6 +25,35 @@
         object-position: top;
         border-radius: 5px;
       }
+    }
+  }
+
+  .image-overlay-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.149);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .image-overlay-close-btn {
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      color: white;
+      font-size: 24px;
+    }
+
+    svg {
+      transform: scale(4);
+    }
+    img {
+      max-width: 1250px;
+      max-height: 750px;
+      border-radius: 8px;
     }
   }
 }
