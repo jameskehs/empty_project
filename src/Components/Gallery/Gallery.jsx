@@ -1,16 +1,15 @@
 import "./Gallery.css";
 import { useState } from "react";
-import EditPanel, {
-  AttemptFocus,
-  RemoveFocus,
-  AttemptSelection,
-  ToggleHidenEditPanel,
-} from "../EditPanel/EditPanel";
+import ImageOverlay from "./ImageOverlay";
+import EditPanel, { AttemptFocus, RemoveFocus, AttemptSelection, ToggleHidenEditPanel } from "../EditPanel/EditPanel";
 
 const Gallery = (props) => {
   console.log(props);
   const [title, setTitle] = useState(props.title);
   const [images, setImages] = useState(props.images);
+
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(undefined);
 
   //Editing states
   const [editState, setEditState] = useState("none");
@@ -23,9 +22,9 @@ const Gallery = (props) => {
   }
 
   function GetClass() {
-    if (editState == "selected") {
+    if (editState === "selected") {
       return "selected";
-    } else if (editState == "focused") {
+    } else if (editState === "focused") {
       return "focused";
     } else {
       return "";
@@ -35,7 +34,7 @@ const Gallery = (props) => {
   ToggleHidenEditPanel(false);
   return (
     <>
-      {editState == "selected" && (
+      {editState === "selected" && (
         <EditPanel
           componentName="Gallery"
           componentID="gallery"
@@ -47,24 +46,25 @@ const Gallery = (props) => {
           DiscardValues={DiscardValues}
         />
       )}
-      <div className={GetClass()}>
-        <div
-          className="gallery"
-          onClick={() => {
-            setEditState(
-              AttemptSelection("collection") ? "selected" : editState
-            );
-          }}
-          onMouseEnter={() => {
-            setEditState(AttemptFocus("collection") ? "focused" : editState);
-          }}
-          onMouseLeave={() => {
-            RemoveFocus();
-            if (editState != "selected") {
-              setEditState("none");
-            }
-          }}
-        >
+      <div
+        className={`gallery ${GetClass()}`}
+        onClick={() => {
+          setEditState(AttemptSelection("collection") ? "selected" : editState);
+        }}
+        onMouseEnter={() => {
+          setEditState(AttemptFocus("collection") ? "focused" : editState);
+        }}
+        onMouseLeave={() => {
+          RemoveFocus();
+          if (editState !== "selected") {
+            setEditState("none");
+          }
+        }}
+      >
+        {isOverlayOpen && (
+          <ImageOverlay setIsOverlayOpen={setIsOverlayOpen} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} images={images} />
+        )}
+        <div className="gallery-contents">
           <h3>{title}</h3>
           <div className="gallery-img-container">
             {images.map((image, index) => {

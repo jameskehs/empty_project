@@ -1,7 +1,11 @@
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { isLoggedInContext } from "../Site/Site";
 
 const NavBar = ({ companyName, links }) => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(isLoggedInContext);
+
   return (
     <nav>
       <div id="nav-contents">
@@ -17,6 +21,17 @@ const NavBar = ({ companyName, links }) => {
           <Link className="admin-link" to="admin">
             Admin
           </Link>
+          {isLoggedIn && (
+            <a
+              href="#hero"
+              onClick={() => {
+                localStorage.removeItem("JKJBJWT");
+                setIsLoggedIn(false);
+              }}
+            >
+              Log out
+            </a>
+          )}
         </div>
       </div>
     </nav>

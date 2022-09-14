@@ -2,44 +2,81 @@
   text-align: center;
   padding: 48px 0;
   background-color: #25293a;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  position: relative;
 }
+
 .collection .collection-contents {
   max-width: 1250px;
   margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
+
 .collection .collection-contents h2 {
   color: #fafafa;
   padding: 8px 0;
 }
+
 .collection .collection-contents p {
   color: #e3e3e3;
 }
+
 .collection .collection-item-container {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
+
 .collection .collection-item-container .collection-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: 24px;
 }
+
 .collection .collection-item-container .collection-item img {
   max-height: 350px;
 }
+
 .collection .collection-item-container .collection-item h3 {
   font-weight: 700;
   color: #fff;
 }
+
 .collection .collection-item-container .collection-item p.pTwo {
   font-weight: 700;
   color: #5175ff;
@@ -47,11 +84,4 @@
   padding: 8px 24px;
   border-radius: 28px;
 }
-
-.focused {
-  background-color: rosybrown;
-}
-
-.selected {
-  background-color: red;
-}/*# sourceMappingURL=Collection.css.map */
+/*# sourceMappingURL=Collection.css.map */
