@@ -1,25 +1,45 @@
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   position: -webkit-sticky;
   position: sticky;
-  background-color: rgb(48, 48, 48);
   padding: 24px;
 }
-nav h1 {
-  color: #fff;
-}
-nav .links a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: 700;
-  padding: 0 12px;
-}
-nav .links a:hover {
-  color: rgb(193, 193, 193);
+
+nav .nav-companyname {
+  font-size: 24px;
+  color: #25293a;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-.admin-link {
-  position: aboslute;
-}/*# sourceMappingURL=NavBar.css.map */
+nav #nav-contents {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+nav .links a {
+  text-decoration: none;
+  -webkit-text-decoration-color: #fff;
+          text-decoration-color: #fff;
+  color: #25293a;
+  font-weight: 700;
+  padding: 0 12px;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  font-size: 18px;
+}
+
+nav .links a:hover {
+  color: #5175ff;
+}
+/*# sourceMappingURL=NavBar.css.map */

@@ -25,9 +25,9 @@ const Collection = ({ title, desc, collectionItems }) => {
 
   function GetClass() {
     if (editState == "selected") {
-      return "collection-selected";
+      return "selected";
     } else if (editState == "focused") {
-      return "collection-focused";
+      return "focused";
     } else {
       return "";
     }
@@ -48,28 +48,33 @@ const Collection = ({ title, desc, collectionItems }) => {
           DiscardValues={DiscardValues}
         />
       )}
-      <div
-        id="collection"
-        className={GetClass()}
-        onClick={() => {
-          setEditState(AttemptSelection("collection") ? "selected" : editState);
-        }}
-        onMouseEnter={() => {
-          setEditState(AttemptFocus("collection") ? "focused" : editState);
-        }}
-        onMouseLeave={() => {
-          RemoveFocus();
-          if (editState != "selected") {
-            setEditState("none");
-          }
-        }}
-      >
-        <h3>{Title}</h3>
-        <p>{Desc}</p>
-        <div className="collection-item-container">
-          {collectionItems.map((item, index) => {
-            return <CollectionItem key={index} item={item} />;
-          })}
+      <div className={GetClass()}>
+        <div
+          className="collection"
+          onClick={() => {
+            setEditState(
+              AttemptSelection("collection") ? "selected" : editState
+            );
+          }}
+          onMouseEnter={() => {
+            setEditState(AttemptFocus("collection") ? "focused" : editState);
+          }}
+          onMouseLeave={() => {
+            RemoveFocus();
+            if (editState != "selected") {
+              setEditState("none");
+            }
+          }}
+        >
+          <div className="collection-contents">
+            <h2>{Title}</h2>
+            <p className="pOne">{Desc}</p>
+            <div className="collection-item-container">
+              {collectionItems.map((item, index) => {
+                return <CollectionItem key={index} item={item} />;
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </>

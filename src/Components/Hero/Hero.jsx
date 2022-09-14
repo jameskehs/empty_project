@@ -24,11 +24,11 @@ const Hero = ({ title, body, imgSrc, buttons }) => {
 
   function GetClass() {
     if (editState == "selected") {
-      return "hero-selected";
+      return "selected";
     } else if (editState == "focused") {
-      return "hero-focused";
+      return "focused";
     } else {
-      return "hero";
+      return "";
     }
   }
   ToggleHidenEditPanel(false);
@@ -46,33 +46,35 @@ const Hero = ({ title, body, imgSrc, buttons }) => {
           DiscardValues={DiscardValues}
         />
       )}
-      <div
-        id="hero"
-        className={GetClass()}
-        onClick={() => {
-          setEditState(AttemptSelection("hero") ? "selected" : editState);
-        }}
-        onMouseEnter={() => {
-          setEditState(AttemptFocus("hero") ? "focused" : editState);
-        }}
-        onMouseLeave={() => {
-          RemoveFocus();
-          if (editState != "selected") {
-            setEditState("none");
-          }
-        }}
-      >
-        <div>
-          <h2>{Title}</h2>
-          <p>{Body}</p>
-          <div className="hero-btn-container">
-            {buttons !== undefined &&
-              buttons.map((button) => {
-                return <button>{button.content}</button>;
-              })}
+      <div className={GetClass()}>
+        <div
+          id="hero"
+          className="hero"
+          onClick={() => {
+            setEditState(AttemptSelection("hero") ? "selected" : editState);
+          }}
+          onMouseEnter={() => {
+            setEditState(AttemptFocus("hero") ? "focused" : editState);
+          }}
+          onMouseLeave={() => {
+            RemoveFocus();
+            if (editState != "selected") {
+              setEditState("none");
+            }
+          }}
+        >
+          <div className="hero-contents">
+            <h2>{Title}</h2>
+            <p className="pOne">{Body}</p>
+            <div className="hero-btn-container">
+              {buttons !== undefined &&
+                buttons.map((button) => {
+                  return <button>{button.content}</button>;
+                })}
+            </div>
           </div>
+          <img src={imgSrc} alt="" />
         </div>
-        <img src={imgSrc} alt="" />
       </div>
     </>
   );

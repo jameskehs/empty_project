@@ -24,7 +24,7 @@ const seedLayout1 = {
       desc: "Our exceptionally handsome developers",
       persons: [
         { name: "Josh", imgSrc: "/assets/HappyPup.jpeg" },
-        { name: "Jim", imgSrc: "/assets/businessCat.jpeg" },
+        { name: "Jim", imgSrc: "/assets/businessCat.png" },
       ],
     },
   },
@@ -32,9 +32,9 @@ const seedLayout1 = {
     componentName: "Gallery",
     props: {
       title: "TB3 Products",
-      imagePairs: [
-        { subtitle: "We sell happy dogs", imgSrc: "/assets/HappyPup.jpeg" },
-        { subtitle: "Cats sell slaves", imgSrc: "/assets/businessCat.jpeg" },
+      images: [
+        { imgSubtitle: "We sell happy dogs", imgSrc: "/assets/HappyPup.jpeg" },
+        { imgSubtitle: "Cats sell slaves", imgSrc: "/assets/businessCat.png" },
       ],
     },
   },

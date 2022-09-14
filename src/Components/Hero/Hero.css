@@ -1,39 +1,60 @@
-#hero {
+.hero {
+  margin: 6px 0;
+  padding: 48px 0;
+  max-width: 1250px;
+  margin: auto;
+}
+.hero .hero-contents {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 12px 0;
 }
-#hero div {
+.hero .hero-contents div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-#hero h2 {
+.hero .hero-contents h1 {
   align-self: flex-start;
+  color: #333950;
 }
-#hero img {
+.hero .hero-contents p {
+  max-width: 400px;
+}
+.hero .hero-contents img {
   max-width: 760px;
   max-height: 350px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-#hero .hero-btn-container {
+.hero .hero-contents .hero-btn-container {
   width: 100%;
   flex-direction: row;
+  justify-content: flex-start;
 }
-#hero .hero-btn-container button {
-  padding: 12px;
-  margin: 12px;
-  border-radius: 5px;
-  border: 1px solid black;
+.hero .hero-contents .hero-btn-container button {
+  margin-top: 24px;
+  margin-right: 12px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 28px;
+  background-color: #5175ff;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.25s ease;
+  font-weight: 700;
+  box-shadow: 0px 25px 25px -10px rgba(63, 91, 194, 0.141);
+}
+.hero .hero-contents .hero-btn-container button:hover {
+  background-color: #829cff;
+  cursor: pointer;
 }
 
-.hero-focused {
+.focused {
   background-color: rosybrown;
 }
 
-.hero-selected {
+.selected {
   background-color: red;
 }/*# sourceMappingURL=Hero.css.map */

@@ -12,9 +12,9 @@ const seedLayout2 = {
   module2: {
     componentName: "Hero",
     props: {
-      title: "MEOW",
+      title: "Meow",
       body: "Meow meow meow meow meow meow meow meow meow meow meow",
-      imgSrc: "/assets/businessCat.jpeg",
+      imgSrc: "/assets/businessCat.png",
       buttons: [{ content: "Try Now!" }, { content: "Contact Us" }],
     },
   },
@@ -25,19 +25,39 @@ const seedLayout2 = {
       desc: "The greatest team you've ever seen.",
       collectionItems: [
         {
-          imgSrc: "/assets/businessCat.jpeg",
+          imgSrc: "/assets/businessCat.png",
           itemTitle: "Bart",
           itemDesc: "CEO",
         },
         {
-          imgSrc: "/assets/businessCat.jpeg",
+          imgSrc: "/assets/businessCat.png",
           itemTitle: "Tuna",
           itemDesc: "Accounting",
         },
         {
-          imgSrc: "/assets/businessCat.jpeg",
+          imgSrc: "/assets/businessCat.png",
           itemTitle: "Chad",
           itemDesc: "IT",
+        },
+      ],
+    },
+  },
+  module4: {
+    componentName: "Gallery",
+    props: {
+      title: "What we Do",
+      images: [
+        {
+          imgSrc: "/assets/consulting.jpg",
+          imgSubtitle: "Consulting",
+        },
+        {
+          imgSrc: "/assets/taxes.jpg",
+          imgSubtitle: "Our Taxes",
+        },
+        {
+          imgSrc: "/assets/profit.jpg",
+          imgSubtitle: "Profit",
         },
       ],
     },

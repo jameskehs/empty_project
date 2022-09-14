@@ -101,12 +101,21 @@ const EditPanel = (props) => {
         break;
       case "Gallery":
         {
-          const { Title, imagePairs } = props;
+          const {
+            Title,
+            setTitle,
+            Images,
+            setImages,
+            SaveValues,
+            DiscardValues,
+          } = props;
           return (
             <div className="EditPanel">
-              <p>{Title}</p>
+              <h1>Gallery</h1>
               <br></br>
-              <></>
+              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+              <br></br>
+              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
             </div>
           );
         }
