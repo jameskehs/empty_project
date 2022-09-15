@@ -32,4 +32,23 @@
     font-size: 18px;
   }
 }
-/*# sourceMappingURL=EditPanel.css.map */
+.EditPanelAddModules {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.list-container {
+  display: flex;
+  font-size: 18px;
+  background-color: #eee;
+  flex-direction: column;
+}
+
+.item-container {
+  background-color: black;
+  border: 1px solid black;
+  padding: 25px 70px;
+  margin: 15px 50px;
+}/*# sourceMappingURL=EditPanel.css.map */

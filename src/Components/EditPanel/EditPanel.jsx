@@ -1,6 +1,7 @@
 import "./EditPanel.css";
 import { useEffect, useState, createContext, useContext } from "react";
-import { isLoggedInContext, SetEditPanelProps } from "../Site/Site";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { isLoggedInContext } from "../Site/Site";
 
 let currFocusedComponentID = "";
 let currSelectedComponentID = "";
@@ -24,7 +25,10 @@ export function RemoveFocus(componentID) {
 }
 
 export function AttemptSelection(componentID) {
-  var selectionAllowed = currSelectedComponentID === "" || currSelectedComponentID === "empty" || currSelectedComponentID === componentID;
+  var selectionAllowed =
+    currSelectedComponentID === "" ||
+    currSelectedComponentID === "empty" ||
+    currSelectedComponentID === componentID;
 
   if (selectionAllowed) {
     console.log("Selected component: " + componentID);
@@ -51,74 +55,142 @@ const EditPanel = (props) => {
 
   function ShowComponentProperties() {
     console.log("Filling out edit panel with component: " + props.componentID);
-    switch (props.componentName) {
-      case "Hero": {
-        const { Title, setTitle, Body, setBody, DiscardValues, SaveValues } = props;
-        return (
-          <div className="EditPanel">
-            <h1>Hero</h1>
-            <br></br>
-            <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-            <br></br>
-            <>{GenericTextField("Body", "Body", Body, setBody)}</>
-            <br></br>
-            <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-          </div>
-        );
-      }
-      case "Collection": {
-        const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } = props;
-        return (
-          <div className="EditPanel">
-            <h1>Collection</h1>
-            <br></br>
-            <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-            <br></br>
-            <>{GenericTextField("Description", "Desc", Desc, setDesc)}</>
-            <br></br>
-            <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-          </div>
-        );
-      }
-      case "Contact": {
-        const { email, phone, address } = props;
-        return (
-          <div className="EditPanel">
-            <h1>Contact</h1>
-            <br></br>
-            <></>
-          </div>
-        );
-      }
-      case "Gallery": {
-        const { Title, setTitle, Images, setImages, SaveValues, DiscardValues } = props;
-        return (
-          <div className="EditPanel">
-            <h1>Gallery</h1>
-            <br></br>
-            <>{GenericTextField("Title", "Title", Title, setTitle)}</>
-            <br></br>
-            <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
-          </div>
-        );
-      }
-      case "empty": {
-        const { Title, imagePairs } = props;
-        return (
-          <div className="EditPanel">
-            <p>Select an existing website component to edit or Add a website component below</p>
-            <br></br>
-            <label htmlFor="addComponents">Add a component:</label>
 
-            <select name="addComponents" id="addComponents">
-              <option value="Hero">Hero</option>
-              <option value="Collection">Collection</option>
-              <option value="Contact">Contact</option>
-              <option value="Gallery">Gallery</option>
-            </select>
-          </div>
-        );
-      }
+    //These are used for empty component only
+    const defaultList = ["A", "B", "C", "D", "E"];
+    const [itemList, setItemList] = useState(defaultList);
+
+    switch (props.componentName) {
+      case "Hero":
+        {
+          const {
+            Title,
+            setTitle,
+            Body,
+            setBody,
+            ImgSrc,
+            setImgSrc,
+            DiscardValues,
+            SaveValues,
+          } = props;
+
+          return (
+            <>
+              <div className="EditPanel">
+                <h1>Hero</h1>
+                <br></br>
+                <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+                <br></br>
+                <>{GenericTextField("Body", "Body", Body, setBody)}</>
+                <br></br>
+                <>{ImageUpload("Picture", "heroPic", ImgSrc, setImgSrc)}</>
+                <br></br>
+                <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+              </div>
+            </>
+          );
+        }
+        break;
+      case "Collection":
+        {
+          const { Title, setTitle, Desc, setDesc, DiscardValues, SaveValues } =
+            props;
+          return (
+            <div className="EditPanel">
+              <h1>Collection</h1>
+              <br></br>
+              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+              <br></br>
+              <>{GenericTextField("Description", "Desc", Desc, setDesc)}</>
+              <br></br>
+              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+            </div>
+          );
+        }
+        break;
+      case "Contact":
+        {
+          const { email, phone, address } = props;
+          return (
+            <div className="EditPanel">
+              <h1>Contact</h1>
+              <br></br>
+              <></>
+            </div>
+          );
+        }
+        break;
+      case "Gallery":
+        {
+          const {
+            Title,
+            setTitle,
+            Images,
+            setImages,
+            SaveValues,
+            DiscardValues,
+          } = props;
+          return (
+            <div className="EditPanel">
+              <h1>Gallery</h1>
+              <br></br>
+              <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+              <br></br>
+              <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
+            </div>
+          );
+        }
+        break;
+      case "empty":
+        {
+          const handleDrop = (droppedItem) => {
+            // Ignore drop outside droppable container
+            if (!droppedItem.destination) return;
+            var updatedList = [...itemList];
+            // Remove dragged item
+            const [reorderedItem] = updatedList.splice(
+              droppedItem.source.index,
+              1
+            );
+            // Add dropped item
+            updatedList.splice(droppedItem.destination.index, 0, reorderedItem);
+            // Update State
+            setItemList(updatedList);
+          };
+
+          return (
+            <div className="EditPanelAddModules">
+              <DragDropContext onDragEnd={handleDrop}>
+                <Droppable droppableId="list-container">
+                  {(provided) => (
+                    <div
+                      className="list-container"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {itemList.map((item, index) => (
+                        <Draggable key={item} draggableId={item} index={index}>
+                          {(provided) => (
+                            <div
+                              className="item-container"
+                              ref={provided.innerRef}
+                              {...provided.dragHandleProps}
+                              {...provided.draggableProps}
+                            >
+                              {item}
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
+            </div>
+          );
+        }
+        break;
       default: {
         return "";
       }
@@ -161,6 +233,42 @@ const EditPanel = (props) => {
             onChange(e.target.value);
           }}
         />
+      </>
+    );
+  }
+
+  //Creates a simple image upload field
+  function ImageUpload(visualName, id, imgSrc, onChange) {
+    return (
+      <>
+        <p>{visualName}</p>
+        <label for={id}>{imgSrc}</label>
+        <input
+          type="file"
+          name={id}
+          onChange={(event) => {
+            console.log(event.target.files[0]);
+            onChange("/assets/" + event.target.files[0].name);
+          }}
+          accept=".jpg,.jpeg,.png"
+        ></input>
+      </>
+    );
+  }
+
+  //Creates a simple image upload field with subtext
+  function ImageUploadWithSubtext(
+    visualName,
+    id,
+    imgSrc,
+    onChange,
+    subText,
+    setSubText
+  ) {
+    return (
+      <>
+        <>{ImageUpload(visualName, id, imgSrc, onChange)}</>
+        <>{GenericTextField("SubText", "subText", subText, setSubText)}</>
       </>
     );
   }

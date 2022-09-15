@@ -1,20 +1,35 @@
 import "./Hero.css";
-import React, { useEffect, useRef, useState } from "react";
-import EditPanel, { AttemptFocus, RemoveFocus, AttemptSelection, ToggleHidenEditPanel } from "../EditPanel/EditPanel";
+import React, { useEffect, useRef, useState, useContext } from "react";
+import EditPanel, {
+  AttemptFocus,
+  RemoveFocus,
+  AttemptSelection,
+  ToggleHidenEditPanel,
+} from "../EditPanel/EditPanel";
+import { isLoggedInContext } from "../Site/Site";
 
 const Hero = (props) => {
-  console.log(props);
   //Module states
   const [Title, setTitle] = useState(props.title);
   const [Body, setBody] = useState(props.body);
-  const [imgSrc, setImgSrc] = useState(props.imgSrc);
+  const [ImgSrc, setImgSrc] = useState(props.imgSrc);
   const [buttons, setButtons] = useState(props.buttons);
 
   //Editing states
   const [editState, setEditState] = useState("none");
+  const { isLoggedIn } = useContext(isLoggedInContext);
 
   function SaveValues() {
     setEditState("none");
+    console.error(props.UID);
+    var module = {
+      componentName: "Hero",
+      props: {
+        title: Title,
+        body: Body,
+        imgSrc: ImgSrc,
+      },
+    };
   }
   function DiscardValues() {
     setEditState("none");
@@ -40,6 +55,8 @@ const Hero = (props) => {
           setTitle={setTitle}
           Body={Body}
           setBody={setBody}
+          ImgSrc={ImgSrc}
+          setImgSrc={setImgSrc}
           SaveValues={SaveValues}
           DiscardValues={DiscardValues}
         />
@@ -47,14 +64,22 @@ const Hero = (props) => {
       <div
         className={`hero ${GetClass()}`}
         onClick={() => {
-          setEditState(AttemptSelection("hero") ? "selected" : editState);
+          setEditState(
+            isLoggedIn
+              ? AttemptSelection("hero")
+                ? "selected"
+                : editState
+              : "none"
+          );
         }}
         onMouseEnter={() => {
-          setEditState(AttemptFocus("hero") ? "focused" : editState);
+          setEditState(
+            isLoggedIn ? (AttemptFocus("hero") ? "focused" : editState) : "none"
+          );
         }}
         onMouseLeave={() => {
           RemoveFocus();
-          if (editState != "selected") {
+          if (isLoggedIn && editState != "selected") {
             setEditState("none");
           }
         }}
@@ -70,7 +95,7 @@ const Hero = (props) => {
                 })}
             </div>
           </div>
-          <img src={imgSrc} alt="" />
+          <img src={ImgSrc} alt="" />
         </div>
       </div>
     </>
