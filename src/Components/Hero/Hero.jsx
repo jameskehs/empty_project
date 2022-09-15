@@ -1,14 +1,14 @@
 import "./Hero.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import EditPanel, {
   AttemptFocus,
   RemoveFocus,
   AttemptSelection,
   ToggleHidenEditPanel,
 } from "../EditPanel/EditPanel";
+import { isLoggedInContext } from "../Site/Site";
 
 const Hero = (props) => {
-  console.log(props);
   //Module states
   const [Title, setTitle] = useState(props.title);
   const [Body, setBody] = useState(props.body);
@@ -17,6 +17,7 @@ const Hero = (props) => {
 
   //Editing states
   const [editState, setEditState] = useState("none");
+  const { isLoggedIn } = useContext(isLoggedInContext);
 
   function SaveValues() {
     setEditState("none");
@@ -63,14 +64,22 @@ const Hero = (props) => {
       <div
         className={`hero ${GetClass()}`}
         onClick={() => {
-          setEditState(AttemptSelection("hero") ? "selected" : editState);
+          setEditState(
+            isLoggedIn
+              ? AttemptSelection("hero")
+                ? "selected"
+                : editState
+              : "none"
+          );
         }}
         onMouseEnter={() => {
-          setEditState(AttemptFocus("hero") ? "focused" : editState);
+          setEditState(
+            isLoggedIn ? (AttemptFocus("hero") ? "focused" : editState) : "none"
+          );
         }}
         onMouseLeave={() => {
           RemoveFocus();
-          if (editState != "selected") {
+          if (isLoggedIn && editState != "selected") {
             setEditState("none");
           }
         }}

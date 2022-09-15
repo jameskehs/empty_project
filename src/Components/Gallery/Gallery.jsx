@@ -1,7 +1,13 @@
 import "./Gallery.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ImageOverlay from "./ImageOverlay";
-import EditPanel, { AttemptFocus, RemoveFocus, AttemptSelection, ToggleHidenEditPanel } from "../EditPanel/EditPanel";
+import EditPanel, {
+  AttemptFocus,
+  RemoveFocus,
+  AttemptSelection,
+  ToggleHidenEditPanel,
+} from "../EditPanel/EditPanel";
+import { isLoggedInContext } from "../Site/Site";
 
 const Gallery = (props) => {
   console.log(props);
@@ -10,6 +16,7 @@ const Gallery = (props) => {
 
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(undefined);
+  const { isLoggedIn } = useContext(isLoggedInContext);
 
   //Editing states
   const [editState, setEditState] = useState("none");
@@ -49,20 +56,37 @@ const Gallery = (props) => {
       <div
         className={`gallery ${GetClass()}`}
         onClick={() => {
-          setEditState(AttemptSelection("collection") ? "selected" : editState);
+          setEditState(
+            isLoggedIn
+              ? AttemptSelection("gallery")
+                ? "selected"
+                : editState
+              : "none"
+          );
         }}
         onMouseEnter={() => {
-          setEditState(AttemptFocus("collection") ? "focused" : editState);
+          setEditState(
+            isLoggedIn
+              ? AttemptFocus("gallery")
+                ? "focused"
+                : editState
+              : "none"
+          );
         }}
         onMouseLeave={() => {
           RemoveFocus();
-          if (editState !== "selected") {
+          if (isLoggedIn && editState != "selected") {
             setEditState("none");
           }
         }}
       >
         {isOverlayOpen && (
-          <ImageOverlay setIsOverlayOpen={setIsOverlayOpen} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} images={images} />
+          <ImageOverlay
+            setIsOverlayOpen={setIsOverlayOpen}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+            images={images}
+          />
         )}
         <div className="gallery-contents">
           <h3>{title}</h3>

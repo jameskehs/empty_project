@@ -1,7 +1,7 @@
 import "./EditPanel.css";
 import { useEffect, useState, createContext, useContext } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { isLoggedInContext, SetEditPanelProps } from "../Site/Site";
+import { isLoggedInContext } from "../Site/Site";
 
 let currFocusedComponentID = "";
 let currSelectedComponentID = "";

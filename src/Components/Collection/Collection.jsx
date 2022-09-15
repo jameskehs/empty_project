@@ -1,7 +1,13 @@
 import CollectionItem from "./CollectionItem";
-import EditPanel, { AttemptFocus, RemoveFocus, AttemptSelection, ToggleHidenEditPanel } from "../EditPanel/EditPanel";
-import React, { useState } from "react";
+import EditPanel, {
+  AttemptFocus,
+  RemoveFocus,
+  AttemptSelection,
+  ToggleHidenEditPanel,
+} from "../EditPanel/EditPanel";
+import React, { useState, useContext } from "react";
 import "./Collection.css";
+import { isLoggedInContext } from "../Site/Site";
 
 const Collection = (props) => {
   //Module states
@@ -11,6 +17,7 @@ const Collection = (props) => {
 
   //Editing states
   const [editState, setEditState] = useState("none");
+  const { isLoggedIn } = useContext(isLoggedInContext);
 
   function SaveValues() {
     setEditState("none");
@@ -47,14 +54,26 @@ const Collection = (props) => {
       <div
         className={`collection ${GetClass()}`}
         onClick={() => {
-          setEditState(AttemptSelection("collection") ? "selected" : editState);
+          setEditState(
+            isLoggedIn
+              ? AttemptSelection("collection")
+                ? "selected"
+                : editState
+              : "none"
+          );
         }}
         onMouseEnter={() => {
-          setEditState(AttemptFocus("collection") ? "focused" : editState);
+          setEditState(
+            isLoggedIn
+              ? AttemptFocus("collection")
+                ? "focused"
+                : editState
+              : "none"
+          );
         }}
         onMouseLeave={() => {
           RemoveFocus();
-          if (editState != "selected") {
+          if (isLoggedIn && editState != "selected") {
             setEditState("none");
           }
         }}
