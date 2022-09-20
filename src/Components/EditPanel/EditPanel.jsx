@@ -64,6 +64,7 @@ function FinishEditingComponent(isSave, props) {
   currFocusedComponentID = "";
   var realProps = {};
   realProps.props = props;
+  realProps.componentName = props.componentName;
   if (isSave) {
     CommitChangesToDB(
       realProps.props.UID,
