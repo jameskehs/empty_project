@@ -54,9 +54,9 @@ const seeModules = async () => {
   try {
     console.log("Seeing tables!");
     const {
-      rows: [info],
+      rows: info,
     } = await client.query(`SELECT * FROM modules`);
-    console.error(info);
+    console.log(info);
     console.log("Finished seeing tables!");
   } catch (error) {
     console.error("Error seeing tables", error);
