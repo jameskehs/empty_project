@@ -21,15 +21,6 @@ const Hero = (props) => {
 
   function SaveValues() {
     setEditState("none");
-    var module = {
-      componentName: "Hero",
-      props: {
-        title: Title,
-        body: Body,
-        imgSrc: ImgSrc,
-        buttons: buttons,
-      },
-    };
   }
   function DiscardValues() {
     setEditState("none");
@@ -59,7 +50,7 @@ const Hero = (props) => {
           setBody={setBody}
           buttons={buttons}
           setButtons={setButtons}
-          ImgSrc={ImgSrc}
+          imgSrc={ImgSrc}
           setImgSrc={setImgSrc}
           SaveValues={SaveValues}
           DiscardValues={DiscardValues}

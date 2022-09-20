@@ -84,7 +84,7 @@ const Collection = (props) => {
           <h2>{Title}</h2>
           <p className="pOne">{Desc}</p>
           <div className="collection-item-container">
-            {CollectionItems.map((item, index) => {
+            {CollectionItems?.map((item, index) => {
               return <CollectionItem key={index} item={item} />;
             })}
           </div>

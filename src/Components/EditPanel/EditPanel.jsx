@@ -64,6 +64,7 @@ function FinishEditingComponent(isSave, props) {
   currFocusedComponentID = "";
   var realProps = {};
   realProps.props = props;
+  console.error(props);
   realProps.componentName = props.componentName;
   if (isSave) {
     CommitChangesToDB(
@@ -97,7 +98,7 @@ const EditPanel = (props) => {
             setTitle,
             body,
             setBody,
-            ImgSrc,
+            imgSrc,
             setImgSrc,
             buttons,
             setButtons,
@@ -114,7 +115,7 @@ const EditPanel = (props) => {
                 <br></br>
                 <>{GenericTextField("Body", "Body", body, setBody)}</>
                 <br></br>
-                <>{ImageUpload("Picture", "heroPic", ImgSrc, setImgSrc)}</>
+                <>{ImageUpload("Picture", "heroPic", imgSrc, setImgSrc)}</>
                 <br></br>
                 <>
                   {console.error(buttons)}
