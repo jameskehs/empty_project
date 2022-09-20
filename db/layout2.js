@@ -15,7 +15,7 @@ const seedLayout2 = {
       title: "Meow",
       body: "Meow meow meow meow meow meow meow meow meow meow meow",
       imgSrc: "/assets/businessCat.png",
-      buttons: [{ content: "Try Now!" }, { content: "Contact Us" }],
+      buttons: [{ label: "Try Now!" , value: "#Hero"}, { label: "Contact Us" , value: "#Collection"}],
     },
   },
   module3: {

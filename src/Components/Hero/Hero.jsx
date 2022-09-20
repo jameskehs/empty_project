@@ -21,13 +21,13 @@ const Hero = (props) => {
 
   function SaveValues() {
     setEditState("none");
-    console.error(props.UID);
     var module = {
       componentName: "Hero",
       props: {
         title: Title,
         body: Body,
         imgSrc: ImgSrc,
+        buttons: buttons,
       },
     };
   }
@@ -49,12 +49,16 @@ const Hero = (props) => {
     <>
       {editState == "selected" && (
         <EditPanel
+          UID={props.UID}
+          sortorder={props.sortorder}
           componentName="Hero"
           componentID="hero"
-          Title={Title}
+          title={Title}
           setTitle={setTitle}
-          Body={Body}
+          body={Body}
           setBody={setBody}
+          buttons={buttons}
+          setButtons={setButtons}
           ImgSrc={ImgSrc}
           setImgSrc={setImgSrc}
           SaveValues={SaveValues}
@@ -84,14 +88,14 @@ const Hero = (props) => {
           }
         }}
       >
-        <div className="hero-contents">
+        <div className="hero-contents" id="Hero">
           <div>
             <h1>{Title}</h1>
             <p className="pOne">{Body}</p>
             <div className="hero-btn-container">
               {buttons !== undefined &&
                 buttons.map((button) => {
-                  return <button>{button.content}</button>;
+                  return <button href={button.value}>{button.label}</button>;
                 })}
             </div>
           </div>

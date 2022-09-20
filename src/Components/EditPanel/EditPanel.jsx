@@ -2,6 +2,9 @@ import "./EditPanel.css";
 import { useEffect, useState, createContext, useContext } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { isLoggedInContext } from "../Site/Site";
+import axios from "axios";
+import { isTemplateElement } from "@babel/types";
+import Select from "react-select";
 
 let currFocusedComponentID = "";
 let currSelectedComponentID = "";
@@ -44,10 +47,30 @@ export function ToggleHidenEditPanel(status) {
   isHidden = status;
 }
 
-function FinishEditingComponent() {
+export async function CommitChangesToDB(moduleID, module, sortOrder) {
+  try {
+    const { data } = await axios.put(`/api/modules/${moduleID}`, {
+      module,
+      sortOrder,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function FinishEditingComponent(isSave, props) {
   console.log("Finished editing component: " + currSelectedComponentID);
   currSelectedComponentID = "";
   currFocusedComponentID = "";
+  var realProps = {};
+  realProps.props = props;
+  if (isSave) {
+    CommitChangesToDB(
+      realProps.props.UID,
+      realProps,
+      realProps.props.sortorder
+    );
+  }
 }
 
 const EditPanel = (props) => {
@@ -60,16 +83,23 @@ const EditPanel = (props) => {
     const defaultList = ["A", "B", "C", "D", "E"];
     const [itemList, setItemList] = useState(defaultList);
 
+    const actionsForButtons = [
+      { label: "Go to Hero", value: "#Hero" },
+      { label: "Go to Collection", value: "#Collection" },
+    ];
+
     switch (props.componentName) {
       case "Hero":
         {
           const {
-            Title,
+            title,
             setTitle,
-            Body,
+            body,
             setBody,
             ImgSrc,
             setImgSrc,
+            buttons,
+            setButtons,
             DiscardValues,
             SaveValues,
           } = props;
@@ -79,11 +109,23 @@ const EditPanel = (props) => {
               <div className="EditPanel">
                 <h1>Hero</h1>
                 <br></br>
-                <>{GenericTextField("Title", "Title", Title, setTitle)}</>
+                <>{GenericTextField("Title", "Title", title, setTitle)}</>
                 <br></br>
-                <>{GenericTextField("Body", "Body", Body, setBody)}</>
+                <>{GenericTextField("Body", "Body", body, setBody)}</>
                 <br></br>
                 <>{ImageUpload("Picture", "heroPic", ImgSrc, setImgSrc)}</>
+                <br></br>
+                <>
+                  {console.error(buttons)}
+                  {ItemGroup(
+                    "actionButtons",
+                    buttons,
+                    setButtons,
+                    actionsForButtons,
+                    0,
+                    2
+                  )}
+                </>
                 <br></br>
                 <>{SaveAndDiscardButtons(SaveValues, DiscardValues)}</>
               </div>
@@ -203,7 +245,7 @@ const EditPanel = (props) => {
         <button
           onClick={() => {
             onSave();
-            FinishEditingComponent();
+            FinishEditingComponent(true, props);
           }}
         >
           Save
@@ -211,7 +253,7 @@ const EditPanel = (props) => {
         <button
           onClick={() => {
             onDiscard();
-            FinishEditingComponent();
+            FinishEditingComponent(false, props);
           }}
         >
           Discard
@@ -271,6 +313,103 @@ const EditPanel = (props) => {
         <>{GenericTextField("SubText", "subText", subText, setSubText)}</>
       </>
     );
+  }
+
+  //Creates a select box
+  function Selector(id, options, initialOption, onChange) {
+    const initOption = { value: initialOption.value };
+    for (var i = 0; i < options.length; i++) {
+      console.error(options[i].label);
+      if (options[i].value == initialOption.value) {
+        initOption.label = options[i].label;
+      }
+    }
+
+    const [selection, setSelection] = useState(initOption);
+    useEffect(() => {
+      onChange(selection);
+    }, [selection]);
+    return (
+      <>
+        <Select
+          name=""
+          id={id}
+          value={selection}
+          options={options}
+          onChange={setSelection}
+        />
+      </>
+    );
+  }
+
+  //Combines a selector for the action and a text field for the label to make a button on the website
+  function ActionButton(
+    idAction,
+    actionOptions,
+    initialActionOption,
+    onChangeAction,
+    visualNameLabel,
+    idLabel,
+    currValueLabel,
+    onChangeLabel
+  ) {
+    return (
+      <>
+        {Selector(idAction, actionOptions, initialActionOption, onChangeAction)}
+        {GenericTextField(
+          visualNameLabel,
+          idLabel,
+          currValueLabel,
+          onChangeLabel
+        )}
+      </>
+    );
+  }
+
+  //Creates a group of managed identical items
+  function ItemGroup(itemType, dataSet, setDataSet, actionSet, min, max) {
+    switch (itemType) {
+      case "actionButtons":
+        var itemSet = [];
+        for (let i = 0; i < dataSet.length; i++) {
+          itemSet[i] = (
+            <>
+              {ActionButton(
+                "action",
+                actionSet,
+                dataSet[i],
+                (val) => {
+                  console.error(i);
+                  if (val !== undefined && i < dataSet.length) {
+                    var newButtons = [];
+                    for (var j = 0; j < dataSet.length; j++) {
+                      newButtons[j] = dataSet[j];
+                    }
+                    newButtons[i].value = val.value;
+                    setDataSet(newButtons);
+                  }
+                },
+                "Label:",
+                "label",
+                dataSet[i].label,
+                (val) => {
+                  console.error(i);
+                  if (val !== undefined && i < dataSet.length) {
+                    var newButtons = [];
+                    for (var j = 0; j < dataSet.length; j++) {
+                      newButtons[j] = dataSet[j];
+                    }
+                    newButtons[i].label = val;
+                    setDataSet(newButtons);
+                  }
+                }
+              )}
+            </>
+          );
+        }
+        return itemSet;
+        break;
+    }
   }
 
   return (
