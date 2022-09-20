@@ -50,9 +50,24 @@ const createTables = async () => {
   }
 };
 
+const seeModules = async () => {
+  try {
+    console.log("Seeing tables!");
+    const {
+      rows: [info],
+    } = await client.query(`SELECT * FROM modules`);
+    console.error(info);
+    console.log("Finished seeing tables!");
+  } catch (error) {
+    console.error("Error seeing tables", error);
+  }
+};
+
 const rebuildDB = async () => {
   const password = await bcrypt.hash("password", 10);
   client.connect();
+  //await seeModules();
+  
   await dropTables();
   await createTables();
   await createUser("Jimmy Kehs", "jim@gmail.com", password, true);
@@ -68,7 +83,7 @@ const rebuildDB = async () => {
   await addModule(2, seedLayout2.module2, 2);
   await addModule(2, seedLayout2.module3, 3);
   await addModule(2, seedLayout2.module4, 4);
-
+  
   client.end();
 };
 

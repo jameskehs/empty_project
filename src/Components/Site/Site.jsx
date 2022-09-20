@@ -46,10 +46,10 @@ const Site = () => {
       <div style={isLoggedIn ? { width: "80%" } : { width: "100%" }}>
         {layout.length > 0 &&
           layout.map((component) => {
-            const { moduleid, module, sortOrder } = component;
+            const { moduleid, module, sortorder } = component;
             module.props.key = moduleid;
             module.props.UID = moduleid;
-            module.props.sortOrder = sortOrder;
+            module.props.sortorder = sortorder;
             if (Components[module.componentName] === undefined) {
               return <></>;
             }

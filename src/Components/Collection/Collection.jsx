@@ -41,6 +41,8 @@ const Collection = (props) => {
     <>
       {editState == "selected" && (
         <EditPanel
+          UID={props.UID}
+          sortorder={props.sortorder}
           componentName="Collection"
           componentID="collection"
           Title={Title}

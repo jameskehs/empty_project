@@ -43,6 +43,8 @@ const Gallery = (props) => {
     <>
       {editState === "selected" && (
         <EditPanel
+          UID={props.UID}
+          sortorder={props.sortorder}
           componentName="Gallery"
           componentID="gallery"
           Title={title}
